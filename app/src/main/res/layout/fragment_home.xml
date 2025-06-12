@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/place"
+        android:id="@+id/homeFragmentPlace"
         android:padding="10sp"
         android:textAlignment="center"
         android:textSize="30sp"
@@ -17,14 +17,14 @@
         android:text="Baguio City"
         />
     <TextView
-        android:id="@+id/temperature"
+        android:id="@+id/homeFragmentTemperature"
         android:textAlignment="center"
         android:textSize="50sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="25°C" />
     <TextView
-        android:id="@+id/condition"
+        android:id="@+id/homeFragmentCondition"
         android:textAlignment="center"
         android:textSize="25sp"
         android:layout_width="match_parent"
@@ -32,6 +32,7 @@
         android:text="Sunny" />
 
     <LinearLayout
+        android:id="@+id/homeFragmentLocLayout"
         android:layout_width="2.3in"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
@@ -39,7 +40,7 @@
         android:padding="10sp">
 
         <TextView
-            android:id="@+id/location"
+            android:id="@+id/homeFragmentLocationTxt"
             android:textAlignment="center"
             android:textSize="25sp"
             android:layout_width="match_parent"
