@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="<3"/>
+        android:text="Lol"/>
     <TextView
         android:id="@+id/temperatureHourItem"
         android:layout_width="wrap_content"

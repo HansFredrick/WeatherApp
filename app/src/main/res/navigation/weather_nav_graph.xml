@@ -9,20 +9,39 @@
         android:name="com.example.myweatherapp.presentation.fragments.HomeFragment"
         android:label="HomeFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_locationFragment"
-            app:destination="@id/locationFragment" />
+            android:id="@+id/action_homeFragment_to_contentFragment"
+            app:destination="@id/contentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.example.myweatherapp.presentation.fragments.LocationFragment"
         android:label="LocationFragment" >
         <action
-            android:id="@+id/action_locationFragment_to_selectLocationFragment"
-            app:destination="@id/selectLocationFragment" />
+            android:id="@+id/action_locationFragment_to_contentFragment"
+            app:destination="@id/contentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/selectLocationFragment"
         android:name="com.example.myweatherapp.presentation.fragments.SelectLocationFragment"
-        android:label="SelectLocationFragment"
-        />
+        android:label="SelectLocationFragment">
+        <action
+            android:id="@+id/action_selectLocationFragment_to_contentFragment"
+            app:destination="@id/contentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/contentFragment"
+        android:name="com.example.myweatherapp.presentation.fragments.ContentFragment"
+        android:label="ContentFragment" />
 </navigation>
