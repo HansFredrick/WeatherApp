@@ -1,4 +1,4 @@
-package com.example.myweatherapp
+package com.example.myweatherapp.domain.model.forecast
 
 data class Location(
     val country: String,
