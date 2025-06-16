@@ -1,6 +1,5 @@
-package com.example.myweatherapp.domain.api
+package com.example.myweatherapp.data.api
 
-import com.example.myweatherapp.domain.model.current.AirQuality
 import com.example.myweatherapp.domain.model.current.Current
 import com.example.myweatherapp.domain.model.forecast.Forecast
 import com.example.myweatherapp.util.Constants.Companion.API_KEY

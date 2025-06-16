@@ -1,7 +1,6 @@
-package com.example.myweatherapp.domain.api
+package com.example.myweatherapp.data.api
 
 import com.example.myweatherapp.util.Constants.Companion.BASE_URL
-import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
