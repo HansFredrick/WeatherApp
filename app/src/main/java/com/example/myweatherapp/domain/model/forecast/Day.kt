@@ -1,6 +1,21 @@
 package com.example.myweatherapp.domain.model.forecast
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.ForeignKey
+
+@Entity(
+    tableName = "day",
+    foreignKeys = [ForeignKey(
+        entity = Forecastday::class,
+        parentColumns = ["forecast_day_id"],
+        childColumns = ["forecast_day_id"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class Day(
+    @PrimaryKey(autoGenerate = true)
+    val day_id: Int = 0,
     val air_quality: AirQualityX,
     val avghumidity: Int,
     val avgtemp_c: Double,

@@ -1,11 +1,10 @@
-package com.example.myweatherapp.data.db
+package com.example.myweatherapp.data.db.current
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.myweatherapp.domain.model.current.Location
-import okio.Lock
 
 @Database(
     entities = [Location :: class],
@@ -17,11 +16,11 @@ abstract class LocationDatabase : RoomDatabase(){
 
     companion object{
         @Volatile
-        private var instance :LocationDatabase? =null
+        private var instance : LocationDatabase? =null
         private val Lock = Any()
 
-        operator fun invoke(context: Context) = Companion.instance ?: synchronized(Lock) {
-            instance?: createDatabase(context).also { instance = it}
+        operator fun invoke(context: Context) = instance ?: synchronized(Lock) {
+            instance ?: createDatabase(context).also { instance = it}
         }
 
         private fun createDatabase(context: Context) =

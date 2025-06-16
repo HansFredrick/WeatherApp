@@ -1,6 +1,15 @@
 package com.example.myweatherapp.domain.model.current
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(
+    tableName = "current_weather"
+)
+
 data class CurrentX(
+    @PrimaryKey(autoGenerate = true)
+    var location_id:Int,
     val air_quality: AirQuality,
     val cloud: Int,
     val condition: Condition,
