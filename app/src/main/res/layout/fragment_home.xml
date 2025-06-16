@@ -1,200 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-
-
-    <TextView
-        android:id="@+id/homeFragmentPlace"
-        android:padding="10sp"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Baguio City"
-        />
-    <TextView
-        android:id="@+id/homeFragmentTemperature"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="25°C"
-        />
-    <TextView
-        android:id="@+id/homeFragmentCondition"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sunny"
-        />
+    android:padding="16dp">
 
     <LinearLayout
-        android:id="@+id/homeFragmentLocLayout"
-        android:layout_width="2.3in"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
         android:orientation="vertical"
-        android:padding="10sp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
 
+        <!-- City Name -->
+        <TextView
+            android:id="@+id/homeFragmentPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baguio City"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <!-- Temperature -->
+        <TextView
+            android:id="@+id/homeFragmentTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25°C"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:paddingBottom="4dp" />
+
+        <!-- Condition -->
+        <TextView
+            android:id="@+id/homeFragmentCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunny"
+            android:textSize="20sp"
+            android:paddingBottom="16dp" />
+
+        <!-- Location Label -->
         <TextView
             android:id="@+id/homeFragmentLocationTxt"
-            android:textAlignment="center"
-            android:textSize="25sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Location"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:padding="12dp"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white" />
 
-            />
-
-
-    </LinearLayout>
-
-    <!-- horizontal view for hourly updates  -->
-
-    <HorizontalScrollView
-        android:id="@+id/horizontal"
-        android:layout_width="2.3in"
-        android:layout_marginHorizontal="12dp"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:scrollbars="horizontal">
-
-        <LinearLayout
-            android:id="@+id/hourContainer"
-            android:layout_width="wrap_content"
+        <!-- Forecast Header -->
+        <TextView
+            android:id="@+id/forecastHeader"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="10-DAY FORECAST"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:paddingTop="24dp"
+            android:paddingBottom="12dp" />
 
-            <!-- Your horizontally laid out views (e.g., buttons, cards) -->
-<!--            1am-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:padding="10dp">
+        <!-- Forecast Container -->
+        <LinearLayout
+            android:id="@+id/forecastContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:padding="8dp"
+            android:layout_marginBottom="24dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1am"
-                    android:textSize="17sp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lol"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="25°C"/>
-
-           </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2am"
-                    android:textSize="17sp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lol"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="25°C"/>
-
-            </LinearLayout>
-
-
-
-
-            <!-- Add more as needed -->
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <!--  layout for weekly forecast -->
-    <TextView
-        android:id="@+id/forecastHeader"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="10-DAY FORECAST"
-
-        />
-    <LinearLayout
-        android:id="@+id/forecastContainer"
-        android:layout_width="2.3in"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:orientation="vertical"
-        android:padding="10sp">
-
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <!-- Grouped Layout: Air Quality + Wind Speed -->
+        <LinearLayout
+            android:id="@+id/homeFragmentEnvironmentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical">
+            android:weightSum="2"
+            android:layout_marginBottom="16dp">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/weatherIcon"-->
-<!--                android:layout_width="40dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:src="@drawable/ic_sunny" />-->
-
-            <TextView
-                android:id="@+id/weatherText"
-                android:layout_width="wrap_content"
+            <!-- Air Quality Block -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Monday - 28°C"
-                android:paddingStart="16dp"
-                android:textSize="16sp" />
+                android:orientation="vertical"
+                android:background="@android:color/holo_blue_light"
+                android:padding="12dp"
+                android:layout_marginEnd="8dp">
 
+                <TextView
+                    android:id="@+id/airQuality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AIR QUALITY"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <!-- Wind Speed Block -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/holo_green_light"
+                android:padding="12dp"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:id="@+id/windSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WIND SPEED"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
-    <!--  layout for air quality -->
-    <LinearLayout
-        android:layout_width="2.3in"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:orientation="vertical"
-        android:padding="10sp">
-
-        <TextView
-            android:id="@+id/windSpeed"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="WIND SPEED"
-            />
-
-
-    </LinearLayout>
-
-
-
-
-
-</LinearLayout>
+</ScrollView>
