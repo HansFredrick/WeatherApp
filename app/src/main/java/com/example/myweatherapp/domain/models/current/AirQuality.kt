@@ -1,13 +1,12 @@
-package com.example.myweatherapp.domain.model.forecast
+package com.example.myweatherapp.domain.models.current
 
 import com.google.gson.annotations.SerializedName
 
-data class AirQualityX(
-    val aqi_data: String,
+data class AirQuality(
     val co: Double,
     @SerializedName("gb-defra-index") val gbDefraIndex: Int,
     val no2: Double,
-    val o3: Double,
+    val o3: Int,
     val pm10: Double,
     val pm2_5: Double,
     val so2: Double,

@@ -1,8 +1,8 @@
 package com.example.myweatherapp.data.db.current
 
 import androidx.room.TypeConverter
-import com.example.myweatherapp.domain.model.current.AirQuality
-import com.example.myweatherapp.domain.model.current.Condition
+import com.example.myweatherapp.domain.models.current.AirQuality
+import com.example.myweatherapp.domain.models.current.Condition
 import com.google.gson.reflect.TypeToken
 import com.google.gson.Gson
 

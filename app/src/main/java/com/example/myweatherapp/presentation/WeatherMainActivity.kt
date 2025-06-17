@@ -26,7 +26,6 @@ class WeatherMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_weather)
 
         // for Home fragment
         val weatherRepository = WeatherRepository(
@@ -49,8 +48,9 @@ class WeatherMainActivity : AppCompatActivity() {
         locationViewModel = ViewModelProvider(this,locationViewModelProviderFactory)
             .get(LocationViewModel::class.java)
 
+        setContentView(R.layout.activity_weather)
 
-
+        //Bottom navigatiom
         findViewById<BottomNavigationView>(R.id.bottomNavigationView).setupWithNavController(findNavController(R.id.weatherNavHostFragment))
 
     }

@@ -1,4 +1,4 @@
-package com.example.myweatherapp.domain.model.forecast
+package com.example.myweatherapp.domain.models.forecast
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

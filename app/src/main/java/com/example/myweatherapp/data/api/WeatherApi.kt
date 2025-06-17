@@ -1,7 +1,7 @@
 package com.example.myweatherapp.data.api
 
-import com.example.myweatherapp.domain.model.current.Current
-import com.example.myweatherapp.domain.model.forecast.Forecast
+import com.example.myweatherapp.domain.models.current.Current
+import com.example.myweatherapp.domain.models.forecast.Forecast
 import com.example.myweatherapp.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET

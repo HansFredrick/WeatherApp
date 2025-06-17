@@ -7,8 +7,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.myweatherapp.domain.model.forecast.Forecastday
-import com.example.myweatherapp.domain.model.forecast.wrapper.ForecastWithDayAndHours
+import com.example.myweatherapp.domain.models.forecast.Forecastday
+import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
 
 @Dao
 interface ForecastDayDAO {

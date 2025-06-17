@@ -1,4 +1,4 @@
-package com.example.myweatherapp.domain.model.current
+package com.example.myweatherapp.domain.models.forecast
 
 data class Condition(
     val code: Int,

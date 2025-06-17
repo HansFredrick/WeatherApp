@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.myweatherapp.data.db.current.Converters
 import com.example.myweatherapp.data.db.current.DAO.CurrentWeatherDAO
-import com.example.myweatherapp.domain.model.current.CurrentX
+import com.example.myweatherapp.domain.models.current.CurrentX
 
 @Database(
     entities = [CurrentX :: class],

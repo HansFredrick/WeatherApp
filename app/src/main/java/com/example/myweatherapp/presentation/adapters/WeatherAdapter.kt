@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myweatherapp.R
-import com.example.myweatherapp.domain.model.forecast.wrapper.ForecastWithDayAndHours
+import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
 
 class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.ContentViewHolder>() {
 

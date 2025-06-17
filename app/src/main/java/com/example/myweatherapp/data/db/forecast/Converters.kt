@@ -1,10 +1,10 @@
 package com.example.myweatherapp.data.db.forecast
 
 import androidx.room.TypeConverter
-import com.example.myweatherapp.domain.model.forecast.AirQuality
-import com.example.myweatherapp.domain.model.forecast.Condition
-import com.example.myweatherapp.domain.model.forecast.AirQualityX
-import com.example.myweatherapp.domain.model.forecast.Astro
+import com.example.myweatherapp.domain.models.forecast.AirQuality
+import com.example.myweatherapp.domain.models.forecast.Condition
+import com.example.myweatherapp.domain.models.forecast.AirQualityX
+import com.example.myweatherapp.domain.models.forecast.Astro
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
