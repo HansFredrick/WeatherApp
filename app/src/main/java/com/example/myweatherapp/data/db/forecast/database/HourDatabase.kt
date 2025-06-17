@@ -1,22 +1,29 @@
-package com.example.myweatherapp.data.db.forecast
+package com.example.myweatherapp.data.db.forecast.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.myweatherapp.data.db.forecast.Converters
+import com.example.myweatherapp.data.db.forecast.DAO.HourDAO
 import com.example.myweatherapp.domain.model.forecast.Forecastday
+import com.example.myweatherapp.domain.model.forecast.Hour
 
 @Database(
-    entities = [Forecastday :: class],
+    entities = [Hour::class,
+        Forecastday :: class],
     version = 1
 )
-abstract class ForecastDayDatabase : RoomDatabase(){
 
-    abstract fun getForecastDayDao(): ForecastDayDAO
+@TypeConverters(Converters::class)
+abstract class HourDatabase : RoomDatabase(){
+
+    abstract fun getHourDao(): HourDAO
 
     companion object{
         @Volatile
-        private var instance : ForecastDayDatabase? =null
+        private var instance : HourDatabase? =null
         private val Lock = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(Lock) {
@@ -26,8 +33,8 @@ abstract class ForecastDayDatabase : RoomDatabase(){
         private fun createDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                ForecastDayDatabase:: class.java,
-                "forecast_day_db.db"
+                HourDatabase:: class.java,
+                "hour_db.db"
             ).build()
     }
 }

@@ -1,4 +1,4 @@
-package com.example.myweatherapp.data.db.forecast
+package com.example.myweatherapp.data.db.forecast.DAO
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -6,21 +6,21 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myweatherapp.domain.model.forecast.Day
+import com.example.myweatherapp.domain.model.forecast.Forecastday
 
 @Dao
-interface DayDAO {
+interface ForecastDayDAO {
     // CREATE
     @Insert(onConflict = OnConflictStrategy.REPLACE)// onConflict in case of inserting repeated location
     // upsert == update and insert
     // long : the id that was inserted
-    suspend fun upsert (day: Day) : Long
+    suspend fun upsert (forecastDay: Forecastday) : Long
 
     //READ
-    @Query("SELECT * FROM day")
-    fun getAllLocations () : LiveData<List<Day>>
+    @Query("SELECT * FROM forecast_day")
+    fun getAllLocations () : LiveData<List<Forecastday>>
 
     //DELETE
     @Delete
-    suspend fun deleteLocation(day: Day)
+    suspend fun deleteLocation(day: Forecastday)
 }

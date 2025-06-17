@@ -1,24 +1,27 @@
-package com.example.myweatherapp.data.db.forecast
+package com.example.myweatherapp.data.db.forecast.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.myweatherapp.domain.model.forecast.Day
+import com.example.myweatherapp.data.db.forecast.Converters
+import com.example.myweatherapp.data.db.forecast.DAO.ForecastDayDAO
+import com.example.myweatherapp.domain.model.forecast.Forecastday
 
 @Database(
-    entities = [Day :: class],
+    entities = [Forecastday :: class],
     version = 1
 )
-@TypeConverters(Converters::class)
-abstract class DayDatabase : RoomDatabase(){
 
-    abstract fun getDayDao(): DayDAO
+@TypeConverters(Converters::class)
+abstract class ForecastDayDatabase : RoomDatabase(){
+
+    abstract fun getForecastDayDao(): ForecastDayDAO
 
     companion object{
         @Volatile
-        private var instance : DayDatabase? =null
+        private var instance : ForecastDayDatabase? =null
         private val Lock = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(Lock) {
@@ -28,8 +31,8 @@ abstract class DayDatabase : RoomDatabase(){
         private fun createDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                DayDatabase:: class.java,
-                "day_db.db"
+                ForecastDayDatabase:: class.java,
+                "forecast_day_db.db"
             ).build()
     }
 }

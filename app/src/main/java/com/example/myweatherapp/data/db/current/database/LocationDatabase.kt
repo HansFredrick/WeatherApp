@@ -1,9 +1,10 @@
-package com.example.myweatherapp.data.db.current
+package com.example.myweatherapp.data.db.current.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.myweatherapp.data.db.current.DAO.LocationDAO
 import com.example.myweatherapp.domain.model.current.Location
 
 @Database(

@@ -9,6 +9,7 @@ import com.google.gson.Gson
 class Converters {
 // for current
     private val gson = Gson()
+
     @TypeConverter
     fun fromAirQuality ( airQuality:AirQuality):String{
         return gson.toJson(airQuality)
