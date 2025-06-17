@@ -64,15 +64,24 @@
             android:paddingBottom="12dp" />
 
         <!-- Forecast Container -->
-        <LinearLayout
-            android:id="@+id/forecastContainer"
+        <!-- RecyclerView for Forecast Items -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewForecast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@android:color/white"
-            android:elevation="2dp"
             android:padding="8dp"
+            android:nestedScrollingEnabled="false"
             android:layout_marginBottom="24dp" />
+<!--        <LinearLayout-->
+<!--            android:id="@+id/forecastContainer"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@android:color/white"-->
+<!--            android:elevation="2dp"-->
+<!--            android:padding="8dp"-->
+<!--            android:layout_marginBottom="24dp" />-->
 
         <!-- Grouped Layout: Air Quality + Wind Speed -->
         <LinearLayout

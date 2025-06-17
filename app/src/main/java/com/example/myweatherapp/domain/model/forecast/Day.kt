@@ -14,9 +14,9 @@ import androidx.room.ForeignKey
     )]
 )
 data class Day(
-    @PrimaryKey(autoGenerate = true)
-    val day_id: Int = 0,
+    @PrimaryKey
     val forecast_day_id: Int,
+
     val air_quality: AirQualityX,
     val avghumidity: Int,
     val avgtemp_c: Double,
