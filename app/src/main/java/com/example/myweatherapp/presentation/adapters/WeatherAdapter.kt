@@ -5,58 +5,63 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cursoradapter.widget.SimpleCursorAdapter.ViewBinder
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myweatherapp.R
+import com.example.myweatherapp.databinding.DayItemForecastBinding
 import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
 
-class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.ContentViewHolder>() {
+class WeatherAdapter :
+    ListAdapter<ForecastWithDayAndHours, WeatherAdapter.ContentViewHolder>(differCallback) {
 
-    inner class ContentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
-    private val differCallback = object : DiffUtil.ItemCallback<ForecastWithDayAndHours>() {
-        override fun areItemsTheSame(oldItem: ForecastWithDayAndHours, newItem: ForecastWithDayAndHours): Boolean {
-            return oldItem.forecastday.date == newItem.forecastday.date // date identifies a unique forecast day
-        }
+    inner class ContentViewHolder(val binder: DayItemForecastBinding) :
+        RecyclerView.ViewHolder(binder.root)
 
-        override fun areContentsTheSame(oldItem: ForecastWithDayAndHours, newItem: ForecastWithDayAndHours): Boolean {
-            return oldItem == newItem  // check full content equality
+    companion object {
+        private val differCallback = object : DiffUtil.ItemCallback<ForecastWithDayAndHours>() {
+            override fun areItemsTheSame(
+                oldItem: ForecastWithDayAndHours,
+                newItem: ForecastWithDayAndHours
+            ): Boolean {
+                return oldItem.forecastday.date == newItem.forecastday.date // date identifies a unique forecast day
+            }
+
+            override fun areContentsTheSame(
+                oldItem: ForecastWithDayAndHours,
+                newItem: ForecastWithDayAndHours
+            ): Boolean {
+                return oldItem == newItem  // check full content equality
+            }
         }
     }
 
-    val differ = AsyncListDiffer(this,differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.day_item_forecast, parent, false)
-        return ContentViewHolder(view)
+        val binder = DayItemForecastBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
+        return ContentViewHolder(binder)
     }
 
     override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
-        val forecast = differ.currentList[position]
-
-        val textViewDate = holder.itemView.findViewById<TextView>(R.id.textViewDate)
-        val textViewCondition = holder.itemView.findViewById<TextView>(R.id.textViewCondition)
-        val imageViewIcon = holder.itemView.findViewById<ImageView>(R.id.imageViewIcon)
-        val textViewTempUp = holder.itemView.findViewById<TextView>(R.id.textViewTempUp)
-        val textViewTempDown = holder.itemView.findViewById<TextView>(R.id.textViewTempDown)
+        val forecast = getItem(position)
 
         // Set values
-        textViewDate.text = forecast.forecastday.date
-        textViewCondition.text = forecast.day?.condition?.text ?: "N/A"
-        textViewTempUp.text = "${forecast.day?.maxtemp_c?.toInt() ?: 0}°"
-        textViewTempDown.text = "${forecast.day?.mintemp_c?.toInt() ?: 0}°"
+        holder.binder.textViewDate.text = forecast.forecastday.date
+        holder.binder.textViewCondition.text = forecast.day?.condition?.text ?: "N/A"
+        holder.binder.textViewTempUp.text = "${forecast.day?.maxtemp_c?.toInt() ?: 0}°"
+        holder.binder.textViewTempDown.text = "${forecast.day?.mintemp_c?.toInt() ?: 0}°"
 
         // Load weather icon
         val iconUrl = "https:${forecast.day?.condition?.icon ?: 0}"
         Glide.with(holder.itemView.context)
             .load(iconUrl)
-            .into(imageViewIcon)
+            .into(holder.binder.imageViewIcon)
     }
 
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
 }
