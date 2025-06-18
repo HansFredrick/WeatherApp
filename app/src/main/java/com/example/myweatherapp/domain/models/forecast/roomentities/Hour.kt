@@ -1,8 +1,11 @@
-package com.example.myweatherapp.domain.models.forecast
+package com.example.myweatherapp.domain.models.forecast.roomentities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.example.myweatherapp.domain.models.forecast.AirQuality
+import com.example.myweatherapp.domain.models.forecast.Condition
 
 @Entity(
     tableName = "hours",
@@ -11,12 +14,13 @@ import androidx.room.PrimaryKey
         parentColumns = ["forecast_day_id"],
         childColumns = ["forecast_day_id"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [Index(value = ["forecast_day_id"])]
 )
 data class Hour(
     @PrimaryKey(autoGenerate = true)
     val hour_id: Int = 0,
-    val forecast_day_id: Int,
+    val forecast_day_id: Int,// FK to Forecastday.forecast_day_id
 
     val air_quality: AirQuality,
     val chance_of_rain: Int,

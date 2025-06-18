@@ -1,15 +1,29 @@
-package com.example.myweatherapp.domain.models.current
+package com.example.myweatherapp.domain.models.current.roomentities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+import androidx.room.ForeignKey
+import androidx.room.Index
+import com.example.myweatherapp.domain.models.current.AirQuality
+import com.example.myweatherapp.domain.models.current.Condition
+
 @Entity(
-    tableName = "current_weather"
+    tableName = "current_weather" ,
+    foreignKeys = [ForeignKey(
+        entity = Location::class,
+        parentColumns = ["location_id"],
+        childColumns = ["location_id"],
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["location_id"])]
 )
 
 data class CurrentX(
     @PrimaryKey(autoGenerate = true)
-    var location_id:Int,
+    var current_id:Int,
+
+    var location_id:Int, // FK to Location.id
     val air_quality: AirQuality,
     val cloud: Int,
     val condition: Condition,

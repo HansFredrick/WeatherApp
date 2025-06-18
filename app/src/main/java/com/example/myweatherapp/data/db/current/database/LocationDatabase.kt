@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.myweatherapp.data.db.current.DAO.LocationDAO
-import com.example.myweatherapp.domain.models.current.Location
+import com.example.myweatherapp.domain.models.current.roomentities.Location
 
 @Database(
     entities = [Location :: class],

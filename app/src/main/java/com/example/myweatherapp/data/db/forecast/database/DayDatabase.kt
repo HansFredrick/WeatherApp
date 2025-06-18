@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.myweatherapp.data.db.forecast.Converters
 import com.example.myweatherapp.data.db.forecast.DAO.DayDAO
-import com.example.myweatherapp.domain.models.forecast.Day
-import com.example.myweatherapp.domain.models.forecast.Forecastday
-import com.example.myweatherapp.domain.models.forecast.Hour
+import com.example.myweatherapp.domain.models.forecast.roomentities.Day
+import com.example.myweatherapp.domain.models.forecast.roomentities.Forecastday
+import com.example.myweatherapp.domain.models.forecast.roomentities.Hour
 
 @Database(
     entities = [Day :: class,

@@ -7,7 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.myweatherapp.domain.models.forecast.Forecastday
+import com.example.myweatherapp.domain.models.forecast.roomentities.Forecastday
 import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
 
 @Dao

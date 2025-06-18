@@ -9,6 +9,7 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.data.db.current.database.CurrentWeatherDatabase
 import com.example.myweatherapp.data.db.current.database.LocationDatabase
 import com.example.myweatherapp.data.db.forecast.database.DayDatabase
+import com.example.myweatherapp.data.db.forecast.database.ForecastDatabase
 import com.example.myweatherapp.data.db.forecast.database.ForecastDayDatabase
 import com.example.myweatherapp.data.db.forecast.database.HourDatabase
 import com.example.myweatherapp.domain.repositories.LocationRepository
@@ -32,7 +33,9 @@ class WeatherMainActivity : AppCompatActivity() {
             CurrentWeatherDatabase(this),
             DayDatabase(this),
             ForecastDayDatabase(this),
-            HourDatabase(this))
+            HourDatabase(this),
+            ForecastDatabase(this),
+            LocationDatabase(this))
 
         val weatherViewModelProviderFactory = WeatherViewModelProviderFactory(weatherRepository)
 

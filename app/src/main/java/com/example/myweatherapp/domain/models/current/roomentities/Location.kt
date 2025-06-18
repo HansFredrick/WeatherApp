@@ -1,4 +1,4 @@
-package com.example.myweatherapp.domain.models.current
+package com.example.myweatherapp.domain.models.current.roomentities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

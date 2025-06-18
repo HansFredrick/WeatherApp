@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myweatherapp.domain.models.current.CurrentX
+import com.example.myweatherapp.domain.models.current.roomentities.CurrentX
 
 @Dao
 interface CurrentWeatherDAO {
@@ -18,9 +18,9 @@ interface CurrentWeatherDAO {
 
     //READ
     @Query("SELECT * FROM current_weather")
-    fun getAllLocations () : LiveData<List<CurrentX>>
+    fun getAllCurrent () : LiveData<List<CurrentX>>
 
     //DELETE
     @Delete
-    suspend fun deleteLocation(currentX: CurrentX)
+    suspend fun deleteCurrent(currentX: CurrentX)
 }

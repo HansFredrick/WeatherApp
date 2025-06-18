@@ -15,8 +15,8 @@ interface WeatherApi {
     @Query("q") location: String,
     @Query("aqi") airQuality: String
     ):Response<Current>
-//    get 10-day forecast
 
+//    get 10-day forecast
     @GET("v1/forecast.json")
     suspend fun getForecastWeather(
         @Query("key") apiKey: String = API_KEY,

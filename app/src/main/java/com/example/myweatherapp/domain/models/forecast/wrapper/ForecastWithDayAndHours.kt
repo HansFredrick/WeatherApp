@@ -2,9 +2,9 @@ package com.example.myweatherapp.domain.models.forecast.wrapper
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.myweatherapp.domain.models.forecast.Day
-import com.example.myweatherapp.domain.models.forecast.Forecastday
-import com.example.myweatherapp.domain.models.forecast.Hour
+import com.example.myweatherapp.domain.models.forecast.roomentities.Day
+import com.example.myweatherapp.domain.models.forecast.roomentities.Forecastday
+import com.example.myweatherapp.domain.models.forecast.roomentities.Hour
 
 data class ForecastWithDayAndHours(
     @Embedded

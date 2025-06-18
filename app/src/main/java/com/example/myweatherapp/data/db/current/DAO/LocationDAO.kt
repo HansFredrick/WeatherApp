@@ -6,7 +6,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myweatherapp.domain.models.current.Location
+import androidx.room.Transaction
+import com.example.myweatherapp.domain.models.current.roomentities.Location
+import com.example.myweatherapp.domain.models.current.wrapper.LocationWithCurrentWeather
 
 
 @Dao
@@ -20,6 +22,13 @@ interface LocationDAO {
     //READ
     @Query("SELECT * FROM locations")
     fun getAllLocations () : LiveData<List<Location>>
+
+    @Query("SELECT * FROM locations WHERE name = :name")
+    suspend fun getLocationByName(name: String): Location?
+
+    @Transaction
+    @Query("SELECT * FROM locations WHERE  name = :name")
+    suspend fun getLocationWithCurrentWeather(name: String): LocationWithCurrentWeather
 
     //DELETE
     @Delete

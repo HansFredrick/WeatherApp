@@ -1,18 +1,13 @@
 package com.example.myweatherapp.presentation.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myweatherapp.R
-import com.example.myweatherapp.databinding.DayItemForecastBinding
 import com.example.myweatherapp.databinding.ListItemLocationBinding
-import com.example.myweatherapp.domain.models.current.Location
-import com.example.myweatherapp.presentation.adapters.WeatherAdapter.Companion
+import com.example.myweatherapp.domain.models.current.roomentities.Location
 
 
 class LocationAdapter :

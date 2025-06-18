@@ -1,7 +1,8 @@
-package com.example.myweatherapp.domain.models.forecast
+package com.example.myweatherapp.domain.models.forecast.roomentities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.myweatherapp.domain.models.forecast.Astro
 
 @Entity(
     tableName = "forecast_day"

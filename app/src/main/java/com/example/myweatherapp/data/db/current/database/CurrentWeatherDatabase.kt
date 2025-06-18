@@ -5,16 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.myweatherapp.data.db.current.Converters
+import com.example.myweatherapp.data.db.current.CurrentConverters
 import com.example.myweatherapp.data.db.current.DAO.CurrentWeatherDAO
-import com.example.myweatherapp.domain.models.current.CurrentX
+import com.example.myweatherapp.domain.models.current.roomentities.CurrentX
+import com.example.myweatherapp.domain.models.current.roomentities.Location
 
 @Database(
-    entities = [CurrentX :: class],
+    entities = [CurrentX :: class,
+        Location::class],
     version = 1
 )
 
-@TypeConverters(Converters::class)
+@TypeConverters(CurrentConverters::class)
 abstract  class CurrentWeatherDatabase : RoomDatabase(){
 
      abstract fun getCurrentWeatherDao(): CurrentWeatherDAO

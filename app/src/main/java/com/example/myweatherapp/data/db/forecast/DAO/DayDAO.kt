@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myweatherapp.domain.models.forecast.Day
+import com.example.myweatherapp.domain.models.forecast.roomentities.Day
 
 @Dao
 interface DayDAO {

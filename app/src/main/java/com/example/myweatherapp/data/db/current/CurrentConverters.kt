@@ -6,14 +6,12 @@ import com.example.myweatherapp.domain.models.current.Condition
 import com.google.gson.reflect.TypeToken
 import com.google.gson.Gson
 
-class Converters {
-// for current
+class CurrentConverters {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromAirQuality ( airQuality:AirQuality):String{
-        return gson.toJson(airQuality)
-    }
+    fun fromAirQuality(airQuality: AirQuality): String = gson.toJson(airQuality)
+
     @TypeConverter
     fun toAirQuality(data: String): AirQuality {
         val type = object : TypeToken<AirQuality>() {}.type
@@ -21,14 +19,11 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromCondition( condition: Condition):String{
-        return condition.text
-    }
+    fun fromCondition(condition: Condition): String = gson.toJson(condition)
 
     @TypeConverter
-    fun toCondition (text:String):Condition{
-        return Condition(0,text,text)
-
+    fun toCondition(data: String): Condition {
+        val type = object : TypeToken<Condition>() {}.type
+        return gson.fromJson(data, type)
     }
-
 }

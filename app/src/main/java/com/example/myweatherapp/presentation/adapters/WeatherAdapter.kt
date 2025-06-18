@@ -1,17 +1,11 @@
 package com.example.myweatherapp.presentation.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cursoradapter.widget.SimpleCursorAdapter.ViewBinder
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.DayItemForecastBinding
 import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
 
