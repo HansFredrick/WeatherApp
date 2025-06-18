@@ -1,12 +1,12 @@
-package com.example.myweatherapp.presentation.fragments
+package com.example.myweatherapp.presentation.location
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.myweatherapp.R
-import com.example.myweatherapp.presentation.WeatherMainActivity
 
-class SelectLocationFragment : Fragment(R.layout.fragment_select_location) {
+class LocationFragment : Fragment(R.layout.fragment_locations) {
+
 //    private lateinit var viewModel: LocationViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
