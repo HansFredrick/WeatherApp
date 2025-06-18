@@ -1,5 +1,6 @@
 package com.example.myweatherapp.data.api
 
+import com.example.myweatherapp.data.datasource.WeatherApi
 import com.example.myweatherapp.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -6,15 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.myweatherapp.R
-import com.example.myweatherapp.data.db.current.database.CurrentWeatherDatabase
-import com.example.myweatherapp.data.db.current.database.LocationDatabase
-import com.example.myweatherapp.data.db.forecast.database.DayDatabase
-import com.example.myweatherapp.data.db.forecast.database.ForecastDatabase
-import com.example.myweatherapp.data.db.forecast.database.ForecastDayDatabase
-import com.example.myweatherapp.data.db.forecast.database.HourDatabase
-import com.example.myweatherapp.domain.repositories.LocationRepository
 import com.example.myweatherapp.domain.repositories.WeatherRepository
-import com.example.myweatherapp.presentation.viewmodel.LocationViewModel
 import com.example.myweatherapp.presentation.viewmodel.WeatherViewModel
 import com.example.myweatherapp.presentation.viewmodel.factories.LocationViewModelProviderFactory
 import com.example.myweatherapp.presentation.viewmodel.factories.WeatherViewModelProviderFactory
@@ -23,33 +15,33 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class WeatherMainActivity : AppCompatActivity() {
 
     lateinit var weatherViewModel : WeatherViewModel
-    lateinit var locationViewModel : LocationViewModel
+//    lateinit var locationViewModel : LocationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // for Home fragment
-        val weatherRepository = WeatherRepository(
-            CurrentWeatherDatabase(this),
-            DayDatabase(this),
-            ForecastDayDatabase(this),
-            HourDatabase(this),
-            ForecastDatabase(this),
-            LocationDatabase(this))
+//        val weatherRepository = WeatherRepository(
+//            CurrentWeatherDatabase(this),
+//            DayDatabase(this),
+//            ForecastDayDatabase(this),
+//            HourDatabase(this),
+//            ForecastDatabase(this),
+//            LocationDatabase(this))
 
-        val weatherViewModelProviderFactory = WeatherViewModelProviderFactory(weatherRepository)
+//        val weatherViewModelProviderFactory = WeatherViewModelProviderFactory(weatherRepository)
 
-        weatherViewModel = ViewModelProvider(this,weatherViewModelProviderFactory)
-            .get(WeatherViewModel::class.java)
+//        weatherViewModel = ViewModelProvider(this,weatherViewModelProviderFactory)
+//            .get(WeatherViewModel::class.java)
 
         //for locations fragment
-        val locationRepository = LocationRepository(
-            LocationDatabase(this))
+//        val locationRepository = LocationRepository(
+//            LocationDatabase(this))
 
-        val locationViewModelProviderFactory = LocationViewModelProviderFactory(locationRepository)
+//        val locationViewModelProviderFactory = LocationViewModelProviderFactory(locationRepository)
 
-        locationViewModel = ViewModelProvider(this,locationViewModelProviderFactory)
-            .get(LocationViewModel::class.java)
+//        locationViewModel = ViewModelProvider(this,locationViewModelProviderFactory)
+//            .get(LocationViewModel::class.java)
 
         setContentView(R.layout.activity_weather)
 

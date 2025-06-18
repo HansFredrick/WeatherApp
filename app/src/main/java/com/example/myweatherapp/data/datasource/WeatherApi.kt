@@ -1,6 +1,6 @@
-package com.example.myweatherapp.data.api
+package com.example.myweatherapp.data.datasource
 
-import com.example.myweatherapp.domain.models.current.Current
+import com.example.myweatherapp.data.entities.CurrentWeatherResponse
 import com.example.myweatherapp.domain.models.forecast.Forecast
 import com.example.myweatherapp.util.Constants.Companion.API_KEY
 import retrofit2.Response
@@ -14,7 +14,7 @@ interface WeatherApi {
     @Query("key") apiKey: String = API_KEY,
     @Query("q") location: String,
     @Query("aqi") airQuality: String
-    ):Response<Current>
+    ):Response<CurrentWeatherResponse>
 
 //    get 10-day forecast
     @GET("v1/forecast.json")
