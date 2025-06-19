@@ -2,14 +2,10 @@ package com.example.myweatherapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.myweatherapp.R
-import com.example.myweatherapp.domain.repositories.WeatherRepository
-import com.example.myweatherapp.presentation.viewmodel.WeatherViewModel
-import com.example.myweatherapp.presentation.viewmodel.factories.LocationViewModelProviderFactory
-import com.example.myweatherapp.presentation.viewmodel.factories.WeatherViewModelProviderFactory
+import com.example.myweatherapp.presentation.viewmodelold.WeatherViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class WeatherMainActivity : AppCompatActivity() {

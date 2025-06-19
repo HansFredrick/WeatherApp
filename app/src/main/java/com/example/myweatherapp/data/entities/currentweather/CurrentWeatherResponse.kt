@@ -1,4 +1,4 @@
-package com.example.myweatherapp.data.entities
+package com.example.myweatherapp.data.entities.currentweather
 
 
 data class CurrentWeatherResponse(

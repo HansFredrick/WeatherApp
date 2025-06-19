@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewDate"
+            android:id="@+id/tvDayItemDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Today"
@@ -25,7 +25,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textViewCondition"
+            android:id="@+id/tvDayItemCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Partly cloudy"
@@ -35,7 +35,7 @@
 
     <!-- Center: Icon -->
     <ImageView
-        android:id="@+id/imageViewIcon"
+        android:id="@+id/ivDayItemIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
@@ -50,7 +50,7 @@
         android:gravity="end">
 
         <TextView
-            android:id="@+id/textViewTempUp"
+            android:id="@+id/tvDayItemMaxTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="65°"
@@ -59,7 +59,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textViewTempDown"
+            android:id="@+id/tvDayItemAveTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="49°"

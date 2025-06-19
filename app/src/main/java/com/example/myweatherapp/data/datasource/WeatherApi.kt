@@ -1,7 +1,7 @@
 package com.example.myweatherapp.data.datasource
 
-import com.example.myweatherapp.data.entities.CurrentWeatherResponse
-import com.example.myweatherapp.domain.models.forecast.Forecast
+import com.example.myweatherapp.data.entities.currentweather.CurrentWeatherResponse
+import com.example.myweatherapp.data.entities.forecastweather.ForecastWeatherResponse
 import com.example.myweatherapp.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
@@ -24,5 +24,5 @@ interface WeatherApi {
         @Query("days") days: Int,
         @Query("aqi") airQuality: String,
         @Query("alerts") alerts: String
-    ):Response<Forecast>
+    ):Response<ForecastWeatherResponse>
 }

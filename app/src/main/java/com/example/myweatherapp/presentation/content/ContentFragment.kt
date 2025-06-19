@@ -1,11 +1,11 @@
-package com.example.myweatherapp.presentation.fragments
+package com.example.myweatherapp.presentation.content
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.myweatherapp.R
 import com.example.myweatherapp.presentation.WeatherMainActivity
-import com.example.myweatherapp.presentation.viewmodel.WeatherViewModel
+import com.example.myweatherapp.presentation.viewmodelold.WeatherViewModel
 
 class ContentFragment : Fragment(R.layout.fragment_content) {
 //    private lateinit var locationViewModel: LocationViewModel

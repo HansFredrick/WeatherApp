@@ -10,11 +10,14 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     private val weatherRepository = WeatherRepository()
+
     private val _uiState = MutableStateFlow(HomeState())
     val uiState = _uiState.asStateFlow()
+
     init {
         getData()
     }
+
     private fun getData() {
         viewModelScope.launch {
             val weatherResponse= weatherRepository.getCurrentWeather(q = "Baguio",aqi = "yes")
@@ -27,6 +30,15 @@ class HomeViewModel : ViewModel() {
                 }
             }
 
+            val forecastResponse = weatherRepository .getForecastWeather(q = "Baguio",aqi = "yes", alrt = "yes", dy = 10)
+            if(forecastResponse.isSuccessful){
+                val forecastRemote = forecastResponse.body()
+                _uiState.update { currentState ->
+                    currentState.copy(forecast = forecastRemote)
+
+
+                }
+            }
         }
     }
 

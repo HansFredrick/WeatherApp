@@ -1,32 +1,34 @@
-package com.example.myweatherapp.presentation.adapters
+package com.example.myweatherapp.presentation.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.myweatherapp.data.entities.forecastweather.ForecastDayRemote
 import com.example.myweatherapp.databinding.DayItemForecastBinding
-import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
 
-class WeatherAdapter :
-    ListAdapter<ForecastWithDayAndHours, WeatherAdapter.ContentViewHolder>(differCallback) {
+class HomeForecastAdapter :
+    ListAdapter<ForecastDayRemote, HomeForecastAdapter.ContentViewHolder>(differCallback) {
 
     inner class ContentViewHolder(val binder: DayItemForecastBinding) :
         RecyclerView.ViewHolder(binder.root)
 
     companion object {
-        private val differCallback = object : DiffUtil.ItemCallback<ForecastWithDayAndHours>() {
+        private val differCallback = object : DiffUtil.ItemCallback<ForecastDayRemote>() {
             override fun areItemsTheSame(
-                oldItem: ForecastWithDayAndHours,
-                newItem: ForecastWithDayAndHours
+                oldItem: ForecastDayRemote,
+                newItem: ForecastDayRemote
             ): Boolean {
-                return oldItem.forecastday.date == newItem.forecastday.date // date identifies a unique forecast day
+                return oldItem.date== newItem.date // date identifies a unique forecast day
             }
 
+            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(
-                oldItem: ForecastWithDayAndHours,
-                newItem: ForecastWithDayAndHours
+                oldItem: ForecastDayRemote,
+                newItem: ForecastDayRemote
             ): Boolean {
                 return oldItem == newItem  // check full content equality
             }
@@ -46,16 +48,16 @@ class WeatherAdapter :
         val forecast = getItem(position)
 
         // Set values
-        holder.binder.textViewDate.text = forecast.forecastday.date
-        holder.binder.textViewCondition.text = forecast.day?.condition?.text ?: "N/A"
-        holder.binder.textViewTempUp.text = "${forecast.day?.maxtemp_c?.toInt() ?: 0}°"
-        holder.binder.textViewTempDown.text = "${forecast.day?.mintemp_c?.toInt() ?: 0}°"
+        holder.binder.tvDayItemDate.text = forecast.date
+        holder.binder.tvDayItemCondition.text = forecast.day?.dayCondition?.text ?: "N/A"
+        holder.binder.tvDayItemMaxTemp.text = "${forecast.day?.maximumTemperatureCelsus.toString()?: 0}°"
+        holder.binder.tvDayItemAveTemp.text = "${forecast.day?.averageTemperatureCelsus.toString()?: 0}°"
 
         // Load weather icon
-        val iconUrl = "https:${forecast.day?.condition?.icon ?: 0}"
+        val iconUrl = "https:${forecast.day?.dayCondition?.icon ?: 0}"
         Glide.with(holder.itemView.context)
             .load(iconUrl)
-            .into(holder.binder.imageViewIcon)
+            .into(holder.binder.ivDayItemIcon)
     }
 
 }

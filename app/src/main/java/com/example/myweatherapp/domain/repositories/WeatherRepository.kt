@@ -1,10 +1,12 @@
 package com.example.myweatherapp.domain.repositories
 
 import com.example.myweatherapp.data.api.RetrofitInstance
+import com.example.myweatherapp.data.entities.forecastweather.ForecastWeatherResponse
 import com.example.myweatherapp.domain.models.current.roomentities.CurrentX
 import com.example.myweatherapp.domain.models.current.roomentities.Location
 import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
 import com.example.myweatherapp.domain.repositories.mappers.ForecastMapper
+import retrofit2.Response
 
 class WeatherRepository(
 //    val currentWeatherDb :CurrentWeatherDatabase,
@@ -20,13 +22,23 @@ class WeatherRepository(
         airQuality = aqi
         )
 
-    suspend fun getForecastWeather(q:String,dy:Int,aqi:String,alrt:String)=
-        RetrofitInstance.api.getForecastWeather(
+    suspend fun getForecastWeather(q: String, dy: Int, aqi: String, alrt: String): Response<ForecastWeatherResponse> {
+        return RetrofitInstance.api.getForecastWeather(
             location = q,
-            days = dy ,
+            days = dy,
             airQuality = aqi,
-            alerts= alrt
+            alerts = alrt
         )
+    }
+
+
+
+
+    
+
+
+
+
 
 
     /**

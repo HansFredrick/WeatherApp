@@ -1,4 +1,4 @@
-package com.example.myweatherapp.presentation.adapters
+package com.example.myweatherapp.presentation.location
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import com.example.myweatherapp.domain.models.current.roomentities.Location
 
 
 class LocationAdapter :
-        ListAdapter<Location, LocationAdapter.ContentViewHolder>(LocationAdapter.differCallback) {
+        ListAdapter<Location, LocationAdapter.ContentViewHolder>(differCallback) {
 
     inner class ContentViewHolder(val binder: ListItemLocationBinding) :
         RecyclerView.ViewHolder(binder.root)
@@ -29,7 +29,7 @@ class LocationAdapter :
     }
 
 
-    val differ = AsyncListDiffer(this,differCallback)
+    val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
         val binder = ListItemLocationBinding.inflate(

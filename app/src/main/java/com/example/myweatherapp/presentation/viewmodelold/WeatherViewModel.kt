@@ -1,13 +1,11 @@
-package com.example.myweatherapp.presentation.viewmodel
+package com.example.myweatherapp.presentation.viewmodelold
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.myweatherapp.data.entities.CurrentWeatherResponse
+import com.example.myweatherapp.data.entities.currentweather.CurrentWeatherResponse
 import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
 import com.example.myweatherapp.domain.repositories.WeatherRepository
 import com.example.myweatherapp.util.Resource
-import kotlinx.coroutines.launch
 
 class WeatherViewModel(
     val weatherRepository : WeatherRepository

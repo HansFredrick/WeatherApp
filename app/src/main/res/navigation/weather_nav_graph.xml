@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectLocationFragment"
-        android:name="com.example.myweatherapp.presentation.fragments.SelectLocationFragment"
+        android:name="com.example.myweatherapp.presentation.selectlocation.SelectLocationFragment"
         android:label="SelectLocationFragment">
         <action
             android:id="@+id/action_selectLocationFragment_to_contentFragment"
@@ -42,6 +42,6 @@
     </fragment>
     <fragment
         android:id="@+id/contentFragment"
-        android:name="com.example.myweatherapp.presentation.fragments.ContentFragment"
+        android:name="com.example.myweatherapp.presentation.content.ContentFragment"
         android:label="ContentFragment" />
 </navigation>

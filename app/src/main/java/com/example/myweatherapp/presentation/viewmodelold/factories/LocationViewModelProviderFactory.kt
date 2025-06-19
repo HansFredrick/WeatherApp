@@ -1,6 +1,5 @@
-package com.example.myweatherapp.presentation.viewmodel.factories
+package com.example.myweatherapp.presentation.viewmodelold.factories
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 
