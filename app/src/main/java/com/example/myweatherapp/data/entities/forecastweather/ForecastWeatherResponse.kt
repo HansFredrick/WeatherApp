@@ -1,6 +1,8 @@
 package com.example.myweatherapp.data.entities.forecastweather
 
+import com.google.gson.annotations.SerializedName
+
 
 data class ForecastWeatherResponse (
-    val forecast : ForecastXRemote
+    @SerializedName("forecast")val forecast : ForecastXRemote
 )

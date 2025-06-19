@@ -147,14 +147,6 @@
                 android:padding="12dp"
                 android:layout_marginEnd="8dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:text="AIR QUALITY"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -169,7 +161,8 @@
                         android:textStyle="bold"
                         android:text="Air Quality Index:"
                         android:textAlignment="center"
-                        android:textSize="15dp"/>
+                        android:textColor="@android:color/white"
+                        android:textSize="16dp"/>
                     <TextView
                         android:id="@+id/tvCurrentAirQuality"
                         android:layout_width="0dp"
@@ -190,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@android:color/holo_green_light"
-                android:padding="12dp"
+                android:padding="6dp"
                 android:layout_marginStart="8dp">
 
                 <TextView
@@ -206,52 +199,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:weightSum="4">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="match_parent"
-                        android:textStyle="bold"
-                        android:text="Wind Speed (km):"
-                        android:textAlignment="center"
-                        android:textSize="13dp"/>
                     <TextView
                         android:id="@+id/tvCurrentWindSpeedKilometers"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:layout_height="match_parent"
                         android:textAlignment="center"
                         android:text="13.5"
                         android:textStyle="bold"
                         android:textSize="20dp"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="match_parent"
-                        android:textStyle="bold"
-                        android:text="Wind Speed (m):"
-                        android:textAlignment="center"
-                        android:textSize="13dp"/>
                     <TextView
                         android:id="@+id/tvCurrentWindSpeedMiles"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:layout_height="match_parent"
                         android:textAlignment="center"
                         android:text="6.7"
                         android:textStyle="bold"
                         android:textSize="20dp"/>
-
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -269,18 +238,10 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#AFE9C44B"
-                android:padding="12dp"
+                android:background="#AFE98F4B"
+                android:padding="15sp"
                 android:layout_marginEnd="8dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:text="UV "
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -293,9 +254,10 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:textStyle="bold"
-                        android:text="UC Index:"
+                        android:text="UV Index:"
+                        android:textColor="@android:color/white"
                         android:textAlignment="center"
-                        android:textSize="15dp"/>
+                        android:textSize="17sp"/>
                     <TextView
                         android:id="@+id/tvCurrentUVIndex"
                         android:layout_width="0dp"
@@ -309,14 +271,14 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Wind Speed Block -->
+            <!-- PRECIPITATION Block -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="#806129C1"
-                android:padding="12dp"
+                android:padding="6dp"
                 android:layout_marginStart="8dp">
 
                 <TextView
@@ -332,45 +294,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:weightSum="4">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="match_parent"
-                        android:textStyle="bold"
-                        android:text="Inch (in):"
-                        android:textAlignment="center"
-                        android:textSize="13dp"/>
                     <TextView
                         android:id="@+id/tvCurrentPrecipitationInch"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:layout_height="match_parent"
                         android:textAlignment="center"
                         android:text="13.5"
                         android:textStyle="bold"
                         android:textSize="20dp"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="match_parent"
-                        android:textStyle="bold"
-                        android:textAlignment="center"
-                        android:text="Milimeters (mm):"
-                        android:textSize="13dp"/>
                     <TextView
                         android:id="@+id/tvCurrentPrecipitationMm"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:layout_height="match_parent"
                         android:textAlignment="center"
                         android:text="6.7"
@@ -378,6 +316,7 @@
                         android:textSize="20dp"/>
 
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 

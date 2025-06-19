@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.FragmentHomeBinding
@@ -18,6 +19,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var homeForecastAdapter: HomeForecastAdapter
+
     private lateinit var binder: FragmentHomeBinding
 
     override fun onCreateView(
@@ -57,6 +59,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binder.tvCurrentPrecipitationMm.text = state.weather?.current?.precipitationMilimeter.toString()
                     binder.tvCurrentPrecipitationInch.text = state.weather?.current?.precipitationInch.toString()
                     binder.tvCurrentUVIndex.text = state.weather?.current?.uvIndex.toString()
+                    println("hello poo this is hans")
+                    homeForecastAdapter = HomeForecastAdapter()
+                    binder.recyclerViewForecast.adapter= homeForecastAdapter
+                    binder.recyclerViewForecast.layoutManager = LinearLayoutManager(requireContext())
+                    println(state.forecast?.forecast?.forecastday?.first())
 
                 }
             }
