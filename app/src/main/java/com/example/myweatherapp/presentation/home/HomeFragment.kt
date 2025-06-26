@@ -1,9 +1,11 @@
 package com.example.myweatherapp.presentation.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -13,13 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.FragmentHomeBinding
+import com.example.myweatherapp.domain.repositories.WeatherRepository
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var homeForecastAdapter: HomeForecastAdapter
-
     private lateinit var binder: FragmentHomeBinding
 
     override fun onCreateView(
@@ -38,13 +40,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
 
+                    binder.pbHome.isVisible = state.isLoading
+
                     binder.tvLocationName.text = state.weather?.location?.name
                     binder.tvLocationCountry.text = state.weather?.location?.country
                     binder.tvLocationTimeZone.text = state.weather?.location?.timeZone
                     binder.tvLocationTime.text = state.weather?.location?.localTime
 
-                    binder.tvCurrentTemperature.text =
-                        state.weather?.current?.temperatureCelsius.toString()
+                    binder.tvCurrentTemperature.text = state.weather?.current?.temperatureCelsius.toString()
 
                     binder.tvCurrentWeatherCondition.text =
                         state.weather?.current?.currentWeatherCondition?.text
@@ -59,11 +62,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binder.tvCurrentPrecipitationMm.text = state.weather?.current?.precipitationMilimeter.toString()
                     binder.tvCurrentPrecipitationInch.text = state.weather?.current?.precipitationInch.toString()
                     binder.tvCurrentUVIndex.text = state.weather?.current?.uvIndex.toString()
-                    println("hello poo this is hans")
-                    homeForecastAdapter = HomeForecastAdapter()
-                    binder.recyclerViewForecast.adapter= homeForecastAdapter
-                    binder.recyclerViewForecast.layoutManager = LinearLayoutManager(requireContext())
-                    println(state.forecast?.forecast?.forecastday?.first())
+
+
+                    // 1. Initialize once (e.g., in onViewCreated)
+                    homeForecastAdapter = HomeForecastAdapter().also { adapter ->
+                        binder.recyclerViewForecast.adapter = adapter
+                        binder.recyclerViewForecast.layoutManager = LinearLayoutManager(requireContext())
+                    }
+
+// 2. Whenever state.forecast updates, submit the list:
+                    state.forecast?.forecast?.forecastday?.let { days ->
+                        Log.d("HomeFragment", "Submitting ${days.size} days to adapter")
+                        homeForecastAdapter.submitList(days)
+                    }
 
                 }
             }

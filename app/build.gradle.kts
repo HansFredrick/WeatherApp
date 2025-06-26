@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
 //    alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp") version "1.9.22-1.0.16"
+    id("com.google.dagger.hilt.android") version "2.56.2" apply false
 }
 configurations.all {
     resolutionStrategy {
@@ -50,16 +51,7 @@ android {
 }
 
 dependencies {
-
-    // Room components
-    val roomVersion = "2.6.1"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    implementation("androidx.room:room-ktx:$roomVersion")
-    ksp("androidx.room:room-compiler:$roomVersion")
-
-    //gson
-    implementation ("com.google.code.gson:gson:2.10.1")
-
+    // default dependency
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -77,6 +69,16 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Room components
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+
+    //gson
+    implementation ("com.google.code.gson:gson:2.10.1")
+
     //retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -85,4 +87,8 @@ dependencies {
     //glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     ksp ("com.github.bumptech.glide:compiler:4.16.0")
+
+    //dagger , hilt
+    implementation("com.google.dagger:hilt-android:2.56.2")
+    ksp("com.google.dagger:hilt-android-compiler:2.56.2")
 }

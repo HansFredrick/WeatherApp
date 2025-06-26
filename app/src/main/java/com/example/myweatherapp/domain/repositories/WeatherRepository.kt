@@ -1,34 +1,55 @@
 package com.example.myweatherapp.domain.repositories
 
-import com.example.myweatherapp.data.api.RetrofitInstance
-import com.example.myweatherapp.data.entities.forecastweather.ForecastWeatherResponse
-import com.example.myweatherapp.domain.models.current.roomentities.CurrentX
-import com.example.myweatherapp.domain.models.current.roomentities.Location
-import com.example.myweatherapp.domain.models.forecast.wrapper.ForecastWithDayAndHours
-import com.example.myweatherapp.domain.repositories.mappers.ForecastMapper
+import com.example.myweatherapp.data.datasource.WeatherApi
+import com.example.myweatherapp.data.datasource.local.CurrentWeatherDAO
+import com.example.myweatherapp.data.datasource.local.DayDAO
+import com.example.myweatherapp.data.datasource.local.ForecastDayDAO
+import com.example.myweatherapp.data.datasource.local.LocationDAO
+import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastWeatherResponse
 import retrofit2.Response
+import javax.inject.Inject
 
-class WeatherRepository(
-//    val currentWeatherDb :CurrentWeatherDatabase,
-//    val dayDb : DayDatabase,
-//    val forecastDayDb: ForecastDayDatabase,
-//    val hourDb: HourDatabase,
-//    val forcastDB : ForecastDatabase,
-//    val locationDB:LocationDatabase
-) {
+class WeatherRepository @Inject constructor(
+    private val weatherApi : WeatherApi,
+    private val locationDAO: LocationDAO,
+    private val currentWeatherDAO: CurrentWeatherDAO,
+    private val forecastDayDAO: ForecastDayDAO,
+    private val dayDAO: DayDAO,
+
+){
+
     suspend fun getCurrentWeather(q:String,aqi:String) =
-        RetrofitInstance.api.getCurrentWeather(
+        weatherApi?.getCurrentWeather(
             location = q,
-        airQuality = aqi
+            airQuality = aqi
         )
 
     suspend fun getForecastWeather(q: String, dy: Int, aqi: String, alrt: String): Response<ForecastWeatherResponse> {
-        return RetrofitInstance.api.getForecastWeather(
+        return weatherApi!!.getForecastWeather(
             location = q,
             days = dy,
             airQuality = aqi,
             alerts = alrt
         )
+    }
+
+    /*
+    Create a function the stores api response to room
+     */
+
+    suspend fun fetchAndStoreResponses (q: String, dy: Int, aqi: String, alrt: String){
+        val currentWeatherResponse = weatherApi!!.getCurrentWeather(
+            location = q,
+            airQuality = aqi
+        )
+
+        val forecastResponse = weatherApi!!.getForecastWeather(
+            location = q,
+            days = dy,
+            airQuality = aqi,
+            alerts = alrt
+        )
+
     }
 
 

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myweatherapp.data.entities.forecastweather.ForecastDayRemote
+import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastDayRemote
 import com.example.myweatherapp.databinding.DayItemForecastBinding
 
 class HomeForecastAdapter :

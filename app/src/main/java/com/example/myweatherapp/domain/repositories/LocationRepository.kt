@@ -1,7 +1,10 @@
 package com.example.myweatherapp.domain.repositories
 
-class LocationRepository(
-//    val locationDb :
+import com.example.myweatherapp.data.datasource.local.LocationDAO
+import javax.inject.Inject
+
+class LocationRepository @Inject constructor(
+    val locationDAO: LocationDAO
 ) {
 
 }
