@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
 )
 data class DayEntity(
     @PrimaryKey(autoGenerate = true)
-    var dayId:Int,
+    var dayId:Int? = null,
 
     var forecastDayId:Int,
     val averageTemperatureCelsius : Double,

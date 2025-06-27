@@ -18,7 +18,7 @@ import com.example.myweatherapp.data.entities.currentweather.room.LocationEntity
 )
 data class ForecastDayEntity (
     @PrimaryKey(autoGenerate = true)
-    val forecastDayId : Int,
+    val forecastDayId :Int? = null,
     val locationId:Int,
     val date : String
 )

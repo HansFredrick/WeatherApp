@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class WeatherModule {
+class WeatherModule {
 
     @Provides
     @Singleton
@@ -25,6 +25,7 @@ abstract class WeatherModule {
     fun provideLocationDAO(database: WeatherDatabase): LocationDAO {
         return database.getLocationDao()
     }
+
     @Provides
     @Singleton
     fun provideCurrentWeatherDAO(database: WeatherDatabase): CurrentWeatherDAO {
@@ -36,6 +37,7 @@ abstract class WeatherModule {
     fun provideDayDAO(database: WeatherDatabase): DayDAO {
         return database.getDayDao()
     }
+
     @Provides
     @Singleton
     fun provideForecastDayDAO(database: WeatherDatabase): ForecastDayDAO {

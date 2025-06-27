@@ -6,25 +6,45 @@ import com.example.myweatherapp.data.datasource.local.DayDAO
 import com.example.myweatherapp.data.datasource.local.ForecastDayDAO
 import com.example.myweatherapp.data.datasource.local.LocationDAO
 import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastWeatherResponse
+import com.example.myweatherapp.data.mappers.toDomain
+import com.example.myweatherapp.data.mappers.toEntity
+import com.example.myweatherapp.domain.models.currentweather.Location
 import retrofit2.Response
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
-    private val weatherApi : WeatherApi,
+    private val weatherApi: WeatherApi,
     private val locationDAO: LocationDAO,
     private val currentWeatherDAO: CurrentWeatherDAO,
     private val forecastDayDAO: ForecastDayDAO,
     private val dayDAO: DayDAO,
 
-){
+    ) {
+    //store db,
 
-    suspend fun getCurrentWeather(q:String,aqi:String) =
-        weatherApi?.getCurrentWeather(
+    suspend fun getCurrentWeather(q: String, aqi: String): Result<Location> {
+        val weatherRemote = weatherApi.getCurrentWeather(
             location = q,
             airQuality = aqi
-        )
+        ).body()
 
-    suspend fun getForecastWeather(q: String, dy: Int, aqi: String, alrt: String): Response<ForecastWeatherResponse> {
+        if (weatherRemote?.location == null)
+            return Result.failure(IllegalStateException("Location is null"))
+
+        val savedLocationID = locationDAO.upsert(location = weatherRemote.location.toEntity())
+        val weather = weatherRemote?.current?.toEntity(locationID = savedLocationID.toInt())
+
+
+        return Result.success(weatherRemote.location.toDomain())
+    }
+
+
+    suspend fun getForecastWeather(
+        q: String,
+        dy: Int,
+        aqi: String,
+        alrt: String
+    ): Response<ForecastWeatherResponse> {
         return weatherApi!!.getForecastWeather(
             location = q,
             days = dy,
@@ -37,7 +57,7 @@ class WeatherRepository @Inject constructor(
     Create a function the stores api response to room
      */
 
-    suspend fun fetchAndStoreResponses (q: String, dy: Int, aqi: String, alrt: String){
+    suspend fun fetchAndStoreResponses(q: String, dy: Int, aqi: String, alrt: String) {
         val currentWeatherResponse = weatherApi!!.getCurrentWeather(
             location = q,
             airQuality = aqi
@@ -51,15 +71,6 @@ class WeatherRepository @Inject constructor(
         )
 
     }
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -129,10 +140,6 @@ class WeatherRepository @Inject constructor(
 //    suspend fun getCurrentWeatherByLocationFromDB(q:String):CurrentX{
 //        return locationDB.getLocationDao().getLocationWithCurrentWeather(q).current
 //    }
-
-
-
-
 
 
 }

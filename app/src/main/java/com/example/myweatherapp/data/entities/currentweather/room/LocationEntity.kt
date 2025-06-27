@@ -8,8 +8,7 @@ import androidx.room.PrimaryKey
 )
 data class LocationEntity(
     @PrimaryKey(autoGenerate = true)
-    var locationId:Int,
-
+    var locationId:Int? = null,
     val country: String,
     val localtime: String,
     val name: String,

@@ -16,8 +16,10 @@ import com.bumptech.glide.Glide
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.FragmentHomeBinding
 import com.example.myweatherapp.domain.repositories.WeatherRepository
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
@@ -63,14 +65,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binder.tvCurrentPrecipitationInch.text = state.weather?.current?.precipitationInch.toString()
                     binder.tvCurrentUVIndex.text = state.weather?.current?.uvIndex.toString()
 
-
-                    // 1. Initialize once (e.g., in onViewCreated)
                     homeForecastAdapter = HomeForecastAdapter().also { adapter ->
                         binder.recyclerViewForecast.adapter = adapter
                         binder.recyclerViewForecast.layoutManager = LinearLayoutManager(requireContext())
                     }
 
-// 2. Whenever state.forecast updates, submit the list:
                     state.forecast?.forecast?.forecastday?.let { days ->
                         Log.d("HomeFragment", "Submitting ${days.size} days to adapter")
                         homeForecastAdapter.submitList(days)

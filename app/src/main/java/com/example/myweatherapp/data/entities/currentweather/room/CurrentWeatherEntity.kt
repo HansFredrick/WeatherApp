@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
 
 data class CurrentWeatherEntity (
     @PrimaryKey(autoGenerate = true)
-    var currentWeatherId:Int,
+    var currentWeatherId:Int? = null,
 
     var locationId:Int,
     val temperatureCelsius: Double,

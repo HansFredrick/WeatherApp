@@ -7,7 +7,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.myweatherapp.R
 import com.example.myweatherapp.presentation.home.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WeatherMainActivity : AppCompatActivity() {
 
     lateinit var homeViewModel : HomeViewModel
