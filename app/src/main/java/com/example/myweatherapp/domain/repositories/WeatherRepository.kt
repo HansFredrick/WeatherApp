@@ -9,6 +9,7 @@ import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastWea
 import com.example.myweatherapp.data.mappers.toDomain
 import com.example.myweatherapp.data.mappers.toEntity
 import com.example.myweatherapp.domain.models.currentweather.Location
+import com.example.myweatherapp.domain.models.currentweather.Weather
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -22,7 +23,7 @@ class WeatherRepository @Inject constructor(
     ) {
     //store db,
 
-    suspend fun getCurrentWeather(q: String, aqi: String): Result<Location> {
+    suspend fun getCurrentWeather(q: String, aqi: String): Result<Weather> {
         val weatherRemote = weatherApi.getCurrentWeather(
             location = q,
             airQuality = aqi
@@ -35,7 +36,7 @@ class WeatherRepository @Inject constructor(
         val weather = weatherRemote?.current?.toEntity(locationID = savedLocationID.toInt())
 
 
-        return Result.success(weatherRemote.location.toDomain())
+        return Result.success(weatherRemote.toDomain())
     }
 
 

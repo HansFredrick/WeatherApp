@@ -152,9 +152,9 @@ fun DayRemote.toEntity(forecastID: Int): DayEntity{
     return DayEntity(
         forecastDayId = forecastID,
         averageTemperatureCelsius = this.averageTemperatureCelsus, 
-        maximumTemperatureCelsius = this.maximumTemperatureCelsus,
-        dayConditionText = this.dayCondition.text,
-        dayConditionIcon = this.dayCondition.icon
+        maximumTemperatureCelsius = this.maximumTemperatureCelsus, 
+        dayConditionText = this.dayCondition.text, 
+        dayConditionIcon = this.dayCondition.text
     )
 }
 

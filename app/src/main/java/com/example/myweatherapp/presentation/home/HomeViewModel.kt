@@ -28,7 +28,9 @@ class HomeViewModel @Inject constructor(
             val forecastResponse = weatherRepository.getForecastWeather(q = "Manila",aqi = "yes", alrt = "yes", dy = 10)
 
             getWeatherResult.onSuccess {
-
+                    _uiState.update { currentState ->
+                        currentState.copy(weather = getWeatherResult.getOrNull())
+                    }
             }
             getWeatherResult.onFailure {
                 //shopw error
