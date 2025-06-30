@@ -125,23 +125,21 @@ fun LocationWrapper.toDomain():Weather{
         current = this.currentWeatherEntity!!.toDomain()
     )
 }
-fun LocationWrapper.toDomain2():ForecastWeather{
-    return ForecastWeather(
-        forecast = this.forecastDayWrapper.map {
+fun LocationWrapper.toDomain2():ForecastX{
+    return ForecastX(
+        forecastDays = this.forecastDayWrapper!!.map {
             it.toDomain()
         }
     )
 }
 
-fun ForecastDayWrapper.toDomain():ForecastWeather{
-   this.
+fun ForecastDayWrapper.toDomain():ForecastDay{
+   return ForecastDay(
+       date = this.forecastDayEntity.date,
+       day = this.dayEntity!!.toDomain()
+   )
 }
-fun ForecastDayEntity.toDomain():ForecastDay{
-    return ForecastDay (
-        date = this.date
 
-    )
-}
 fun DayEntity.toDomain():Day{
     return Day(
         averageTemperatureCelsus = this.averageTemperatureCelsius,
@@ -195,7 +193,7 @@ fun ForecastDayRemote.toDomain(): ForecastDay {
 
 fun ForecastXRemote.toDomain(): ForecastX {
     return ForecastX(
-        forecastDay = this.forecastDay.map { it.toDomain() }
+        forecastDays = this.forecastDay.map { it.toDomain() }
     )
 }
 

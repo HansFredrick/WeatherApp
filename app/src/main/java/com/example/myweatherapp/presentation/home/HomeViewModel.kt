@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,18 +30,29 @@ class HomeViewModel @Inject constructor(
             getWeatherResult.collectLatest { result ->
                 _uiState.update { currentState ->
                     currentState.copy(weather = result.data, isLoading = false)
+                    
 
                 }
             }
-
+            getWeatherResult.lastOrNull()?.data?.location?.id?.let { getForecast(it) }
 
 
 
         }
     }
-    fun getForcast(locationID:Int){
+    fun getForecast(locationID:Int){
         viewModelScope.launch {
+            val getForecastResult = weatherRepository.getForecastWeather(
+                q = "Manila", aqi = "yes", alrt = "yes", locationID = locationID,
+                dy = 10
+            )
+            getForecastResult.collectLatest { result ->
+                _uiState.update { currentState ->
+                    currentState.copy(forecast = result.data, isLoading = false)
 
+
+                }
+            }
         }
     }
 

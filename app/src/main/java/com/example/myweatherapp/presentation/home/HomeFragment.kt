@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.FragmentHomeBinding
-import com.example.myweatherapp.domain.repositories.WeatherRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -71,7 +70,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
 
 
-                    state.forecast?.forecast?.forecastDay?.let { days ->
+                    state.forecast?.forecast?.forecastDays?.let { days ->
                         Log.d("HomeFragment", "Submitting ${days.size} days to adapter")
                         homeForecastAdapter.submitList(days)
                     }

@@ -9,7 +9,9 @@ import com.example.myweatherapp.data.datasource.local.LocationDAO
 import com.example.myweatherapp.data.entities.currentweather.remote.CurrentWeatherResponse
 import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastWeatherResponse
 import com.example.myweatherapp.data.mappers.toDomain
+import com.example.myweatherapp.data.mappers.toDomain2
 import com.example.myweatherapp.data.mappers.toEntity
+import com.example.myweatherapp.domain.models.forecast.ForecastWeather
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -63,8 +65,19 @@ class WeatherRepository @Inject constructor(
 
     suspend fun getForecastWeather( q: String,  dy: Int, aqi: String, alrt: String, locationID: Int ) = networkBoundResource(
         query = { // get DAO
-            forecastDayDAO.getLiveForecastWithDayByLocation(locationID).map {
-                it.toDomain()
+            /*
+            output should have type WeatherForecast in  domain.models
+            - WeatherForecast contains list fo ForecastDay
+            - ForecastDayWrapper only contain Forecastdays
+             */
+            currentWeatherDAO.getLiveCurrentWeatherByLocation(locationName = q).map {
+                val forecastX = it?.toDomain2()
+                forecastX?.let { it1 ->
+                    ForecastWeather(
+                        forecast = it1
+                    )
+                }
+
             }
         },
         shouldFetch = { true },
@@ -104,57 +117,9 @@ class WeatherRepository @Inject constructor(
         dayDAO.upsert(entities = dayEntities)
     }
 
-//    suspend fun getForecastWeather( q: String,  dy: Int, aqi: String, alrt: String, locationID: Int ): Result<ForecastWeather> {
-//        val getForecastWeatherResponse = weatherApi.getForecastWeather(
-//            location = q,
-//            days = dy,
-//            airQuality = aqi,
-//            alerts = alrt
-//        )
-//        if (!getForecastWeatherResponse.isSuccessful)
-//            return Result.failure(IllegalStateException("Fetching forecast weather failed"))
-//
-//        val forecastWeatherRemote = getForecastWeatherResponse.body()
-//
-//
-//        upsertForecastWeather(remote = forecastWeatherRemote!!, locationID = locationID)
-//
-//        return Result.success(forecastWeatherRemote!!.toDomain())
-//
-//    }
 
 
-    // fun for passing a domain model
-//    suspend fun getCurrentWeather(q: String, aqi: String) =
-//        flow<Result<Pair<Weather, ForecastWeather>>> {
-//            //Fetch from Retrofit // not running if app has no internet/offline
-//            //Convert to Domain
-//            //Domain to UI
-//
-//            //Get saved current weather locally
-//            //Fetch from retrofit
-//            //Save fetched from retrofit to entity
-//            //Get saved current weather Locally
-//
-//
-//
-//
-//            val getCurrentWeatherResponse = weatherApi.getCurrentWeather(
-////                location = q,
-////                airQuality = aqi
-////            )
-//
-//            if (!getCurrentWeatherResponse.isSuccessful)
-//                return Result.failure(IllegalStateException("Fetching weather failed"))
-//
-//            val weatherRemote = getCurrentWeatherResponse.body()
-//            upsertCurrentWeather(remote = weatherRemote)
-//
-//            if (weatherRemote?.location == null)
-//                return Result.failure(IllegalStateException("Location is null"))
-//
-//            return Result.success((weatherRemote.toDomain()))
-//        }
+
 
 
 
