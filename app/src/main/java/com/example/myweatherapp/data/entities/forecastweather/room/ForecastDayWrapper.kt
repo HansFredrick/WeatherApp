@@ -7,10 +7,10 @@ Technically an entity
 serves as  relational class
  */
 data class ForecastDayWrapper (
-    @Embedded val locationInfoEntity: ForecastDayEntity,
+    @Embedded val forecastDayEntity: ForecastDayEntity,
     @Relation (
         parentColumn = "forecastDayId",
         entityColumn = "forecastDayId"
-    )val currentWeatherEntity: DayEntity?
+    )val dayEntity: DayEntity?
 )
 

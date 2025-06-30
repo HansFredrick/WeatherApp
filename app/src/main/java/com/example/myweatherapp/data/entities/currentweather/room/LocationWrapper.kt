@@ -17,6 +17,6 @@ data class LocationWrapper (
         entity = ForecastDayEntity::class,
         parentColumn = "locationId",
         entityColumn = "locationId"
-    )val forecastDayWrapper: ForecastDayWrapper?
+    )val forecastDayWrapper: List<ForecastDayWrapper>?
 )
 

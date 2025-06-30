@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 // ForecastXRemote containt the list of forecast days
 class ForecastXRemote (
-    @SerializedName("forecastday") val forecastday: List<ForecastDayRemote>
+    @SerializedName("forecastday") val forecastDay: List<ForecastDayRemote>
     )

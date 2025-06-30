@@ -7,28 +7,28 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastDayRemote
 import com.example.myweatherapp.databinding.DayItemForecastBinding
+import com.example.myweatherapp.domain.models.forecast.ForecastDay
 
 class HomeForecastAdapter :
-    ListAdapter<ForecastDayRemote, HomeForecastAdapter.ContentViewHolder>(differCallback) {
+    ListAdapter<ForecastDay, HomeForecastAdapter.ContentViewHolder>(differCallback) {
 
     inner class ContentViewHolder(val binder: DayItemForecastBinding) :
         RecyclerView.ViewHolder(binder.root)
 
     companion object {
-        private val differCallback = object : DiffUtil.ItemCallback<ForecastDayRemote>() {
+        private val differCallback = object : DiffUtil.ItemCallback<ForecastDay>() {
             override fun areItemsTheSame(
-                oldItem: ForecastDayRemote,
-                newItem: ForecastDayRemote
+                oldItem: ForecastDay,
+                newItem: ForecastDay
             ): Boolean {
                 return oldItem.date== newItem.date // date identifies a unique forecast day
             }
 
             @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(
-                oldItem: ForecastDayRemote,
-                newItem: ForecastDayRemote
+                oldItem: ForecastDay,
+                newItem: ForecastDay
             ): Boolean {
                 return oldItem == newItem  // check full content equality
             }

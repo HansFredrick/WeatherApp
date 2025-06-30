@@ -6,7 +6,10 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.myweatherapp.data.entities.currentweather.room.CurrentWeatherEntity
+import com.example.myweatherapp.data.entities.currentweather.room.LocationWrapper
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CurrentWeatherDAO {
@@ -14,14 +17,13 @@ interface CurrentWeatherDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)// onConflict in case of inserting repeated location
     // upsert == update and insert
     // long : the id that was inserted
-    suspend fun upsert (location: CurrentWeatherEntity) : Long
+    suspend fun upsert(currentWeather: CurrentWeatherEntity): Long
 
-    //READ
-    @Query("SELECT * FROM currentWeather")
-    fun getAllCurrentWeather () : LiveData<List<CurrentWeatherEntity>>
 
-    @Query("SELECT * FROM currentWeather WHERE locationId = :locationId")
-    suspend fun getCurrentWeatherByLocation(locationId: Int): CurrentWeatherEntity?
+    @Transaction
+    @Query("SELECT * FROM location WHERE name = :locationName")
+    fun getLiveCurrentWeatherByLocation(locationName: String): Flow<LocationWrapper?>
+
 
     //DELETE
     @Delete

@@ -1,16 +1,16 @@
 package com.example.myweatherapp.domain.repositories
 
+import com.example.myweatherapp.data.api.networkBoundResource
 import com.example.myweatherapp.data.datasource.WeatherApi
 import com.example.myweatherapp.data.datasource.local.CurrentWeatherDAO
 import com.example.myweatherapp.data.datasource.local.DayDAO
 import com.example.myweatherapp.data.datasource.local.ForecastDayDAO
 import com.example.myweatherapp.data.datasource.local.LocationDAO
+import com.example.myweatherapp.data.entities.currentweather.remote.CurrentWeatherResponse
 import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastWeatherResponse
 import com.example.myweatherapp.data.mappers.toDomain
 import com.example.myweatherapp.data.mappers.toEntity
-import com.example.myweatherapp.domain.models.currentweather.Location
-import com.example.myweatherapp.domain.models.currentweather.Weather
-import retrofit2.Response
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
@@ -21,126 +21,145 @@ class WeatherRepository @Inject constructor(
     private val dayDAO: DayDAO,
 
     ) {
-    //store db,
-
-    suspend fun getCurrentWeather(q: String, aqi: String): Result<Weather> {
-        val weatherRemote = weatherApi.getCurrentWeather(
-            location = q,
-            airQuality = aqi
-        ).body()
-
-        if (weatherRemote?.location == null)
-            return Result.failure(IllegalStateException("Location is null"))
-
-        val savedLocationID = locationDAO.upsert(location = weatherRemote.location.toEntity())
-        val weather = weatherRemote?.current?.toEntity(locationID = savedLocationID.toInt())
 
 
-        return Result.success(weatherRemote.toDomain())
+    fun getCurrentWeather(q: String, aqi: String) = networkBoundResource(
+        query = { // first get data
+            currentWeatherDAO.getLiveCurrentWeatherByLocation(locationName = q).map {
+                it?.toDomain()
+            }
+        },
+        shouldFetch = { true },
+        fetch = {
+            weatherApi.getCurrentWeather(
+                location = q,
+                airQuality = aqi
+            )
+        },
+        saveFetchResult = { response ->
+            if (response.isSuccessful) {
+                val weatherResult = response.body()
+                if (weatherResult != null) {
+
+                    upsertCurrentWeather(weatherResult)
+                    val locationEntity = weatherResult.location.toEntity()
+                    val savedLocationID = locationDAO.saveEntity(locationEntity)
+                    currentWeatherDAO.upsert(currentWeather = weatherResult.current.toEntity(locationID = savedLocationID.toInt()))
+                }
+            }
+        },
+        onFetchFailed = {error->
+            println("ERROR OCCURRED:${error.message}")
+        }
+    )
+
+    private suspend fun upsertCurrentWeather(weatherResult: CurrentWeatherResponse) {
+        val locationEntity = weatherResult.location.toEntity()
+        val savedLocationID = locationDAO.saveEntity(locationEntity)
+        currentWeatherDAO.upsert(currentWeather = weatherResult.current.toEntity(locationID = savedLocationID.toInt()))
     }
 
 
-    suspend fun getForecastWeather(
-        q: String,
-        dy: Int,
-        aqi: String,
-        alrt: String
-    ): Response<ForecastWeatherResponse> {
-        return weatherApi!!.getForecastWeather(
+
+    suspend fun getForecastWeather( q: String,  dy: Int, aqi: String, alrt: String, locationID: Int ) = networkBoundResource(
+        query = { // get DAO
+            forecastDayDAO.getLiveForecastWithDayByLocation(locationID).map {
+                it.toDomain()
+            }
+        },
+        shouldFetch = { true },
+        fetch = {
+            weatherApi.getForecastWeather(
             location = q,
             days = dy,
             airQuality = aqi,
             alerts = alrt
         )
+        },
+        saveFetchResult = { response ->
+            if (response.isSuccessful) {
+                val forecastResult = response.body()
+                if (forecastResult != null) {
+                    upsertForecastWeather(forecastResult,locationID)
+                }
+            }
+        },
+        onFetchFailed = {error->
+            println("ERROR OCCURRED:${error.message}")
+        }
+    )
+
+    private suspend fun upsertForecastWeather(remote: ForecastWeatherResponse, locationID: Int) {
+        println(remote.forecast.forecastDay.count())
+        val forecastDayEntities = remote.forecast.forecastDay.map {
+            it.toEntity(locationID)
+        }
+
+        val savedForecastDayIds = forecastDayDAO.upsert(forecastDayEntities = forecastDayEntities)
+
+
+        val dayEntities = savedForecastDayIds.mapIndexed { index, id ->
+            remote.forecast.forecastDay[index].day.toEntity(forecastID = id.toInt())
+        }
+        dayDAO.upsert(entities = dayEntities)
     }
 
-    /*
-    Create a function the stores api response to room
-     */
-
-    suspend fun fetchAndStoreResponses(q: String, dy: Int, aqi: String, alrt: String) {
-        val currentWeatherResponse = weatherApi!!.getCurrentWeather(
-            location = q,
-            airQuality = aqi
-        )
-
-        val forecastResponse = weatherApi!!.getForecastWeather(
-            location = q,
-            days = dy,
-            airQuality = aqi,
-            alerts = alrt
-        )
-
-    }
-
-
-    /**
-     * Fetches forecast data from the API and stores it into the local database.
-     *
-     * Flow:
-     * 1. Makes a network call to fetch forecast data.
-     * 2. Maps the API response to Room entities (Forecastday, Day, Hour).
-     * 3. Uses ForecastDAO to insert the mapped data into their respective tables.
-     *
-     * @param q Location query (e.g., city name)
-     * @param dy Number of forecast days
-     * @param aqi Whether to include air quality ("yes"/"no")
-     * @param alrt Whether to include weather alerts ("yes"/"no")
-     */
-//    suspend fun fetchAndStoreForecast(q:String,dy:Int,aqi:String,alrt:String) {
-//        val response = RetrofitInstance.api.getForecastWeather(
+//    suspend fun getForecastWeather( q: String,  dy: Int, aqi: String, alrt: String, locationID: Int ): Result<ForecastWeather> {
+//        val getForecastWeatherResponse = weatherApi.getForecastWeather(
 //            location = q,
-//            days = dy ,
+//            days = dy,
 //            airQuality = aqi,
-//            alerts= alrt)
-//        if (response.isSuccessful && response.body() != null) {
-//            val forecastMapper = ForecastMapper()
-//
-//            val forecast = response.body()!!
-//            val (forecastDays, days, hours) = forecastMapper.mapApiToEntities(forecast)
-//
-//            // Save to Room
-//            forcastDB.getForecastDao().insertForecastDays(forecastDays)
-//            forcastDB.getForecastDao().insertDays(days)
-//            forcastDB.getForecastDao().insertHours(hours)
-//        }
-//    }
-    /**
-     * Fetches current weather data from the API and stores it in the local database.
-     *
-     * Flow:
-     * 1. Makes a network call to fetch the current weather data.
-     * 2. Extracts the current weather and location objects from the response.
-     * 3. Persists the data into their respective Room tables:
-     *    - Current weather → CurrentWeatherDao
-     *    - Location info → LocationDao
-     *
-     * @param q Location query (e.g., city name or coordinates)
-     * @param aqi Whether to include air quality data ("yes"/"no")
-     */
-//    suspend fun fetchAndStoreCurrent(q:String,aqi:String) {
-//        val response =RetrofitInstance.api.getCurrentWeather(
-//            location = q,
-//            airQuality = aqi
+//            alerts = alrt
 //        )
-//        if (response.isSuccessful && response.body() != null) {
-//            val currentWeather = response.body()!!
-//            currentWeatherDb.getCurrentWeatherDao().upsert(currentWeather.current)
-//            locationDB.getLocationDao().upsert(currentWeather.location)
+//        if (!getForecastWeatherResponse.isSuccessful)
+//            return Result.failure(IllegalStateException("Fetching forecast weather failed"))
+//
+//        val forecastWeatherRemote = getForecastWeatherResponse.body()
+//
+//
+//        upsertForecastWeather(remote = forecastWeatherRemote!!, locationID = locationID)
+//
+//        return Result.success(forecastWeatherRemote!!.toDomain())
+//
+//    }
+
+
+    // fun for passing a domain model
+//    suspend fun getCurrentWeather(q: String, aqi: String) =
+//        flow<Result<Pair<Weather, ForecastWeather>>> {
+//            //Fetch from Retrofit // not running if app has no internet/offline
+//            //Convert to Domain
+//            //Domain to UI
+//
+//            //Get saved current weather locally
+//            //Fetch from retrofit
+//            //Save fetched from retrofit to entity
+//            //Get saved current weather Locally
+//
+//
+//
+//
+//            val getCurrentWeatherResponse = weatherApi.getCurrentWeather(
+////                location = q,
+////                airQuality = aqi
+////            )
+//
+//            if (!getCurrentWeatherResponse.isSuccessful)
+//                return Result.failure(IllegalStateException("Fetching weather failed"))
+//
+//            val weatherRemote = getCurrentWeatherResponse.body()
+//            upsertCurrentWeather(remote = weatherRemote)
+//
+//            if (weatherRemote?.location == null)
+//                return Result.failure(IllegalStateException("Location is null"))
+//
+//            return Result.success((weatherRemote.toDomain()))
 //        }
-//    }
-//
-//    suspend fun getForecastDayWithHoursFromDB():List<ForecastWithDayAndHours>{
-//        return  forcastDB.getForecastDao().getForecastWithDayAndHours()
-//    }
-//
-//    suspend fun getLocationByNameFromDB(q:String): Location {
-//        return locationDB.getLocationDao().getLocationWithCurrentWeather(q).location
-//    }
-//
-//    suspend fun getCurrentWeatherByLocationFromDB(q:String):CurrentX{
-//        return locationDB.getLocationDao().getLocationWithCurrentWeather(q).current
-//    }
+
+
+
+
+
 
 
 }

@@ -10,11 +10,23 @@ import com.example.myweatherapp.data.entities.currentweather.room.LocationEntity
 
 @Dao
 interface LocationDAO {
-    // CREATE
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)// onConflict in case of inserting repeated location
-    // upsert == update and insert
-    // long : the id that was inserted
     suspend fun upsert (location: LocationEntity) : Long
+
+    suspend fun saveEntity(location: LocationEntity):Long{
+        val existingLocationEntity = getLocationByName(name = location.name)
+
+        //If existing location is not null
+        //trigger apply block
+        existingLocationEntity?.apply {
+            deleteLocation(location = this)
+        }
+
+        return upsert(location = location)
+    }
+
+
 
     //READ
     @Query("SELECT * FROM location")

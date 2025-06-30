@@ -70,7 +70,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         binder.recyclerViewForecast.layoutManager = LinearLayoutManager(requireContext())
                     }
 
-                    state.forecast?.forecast?.forecastday?.let { days ->
+
+                    state.forecast?.forecast?.forecastDay?.let { days ->
                         Log.d("HomeFragment", "Submitting ${days.size} days to adapter")
                         homeForecastAdapter.submitList(days)
                     }

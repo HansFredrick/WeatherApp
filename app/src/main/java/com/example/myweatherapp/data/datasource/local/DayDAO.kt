@@ -13,7 +13,10 @@ interface DayDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)// onConflict in case of inserting repeated location
     // upsert == update and insert
     // long : the id that was inserted
-    suspend fun upsert (day: DayEntity) : Long
+    suspend fun upsert(day: DayEntity): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)// onConflict in case of inserting repeated location
+    suspend fun upsert(entities: List<DayEntity>): List<Long>
 
     //READ
     @Query("SELECT * FROM dayTable WHERE forecastDayId = :forecastDayId ")

@@ -1,11 +1,10 @@
 package com.example.myweatherapp.presentation.home
 
-import com.example.myweatherapp.data.entities.currentweather.remote.CurrentWeatherResponse
-import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastWeatherResponse
 import com.example.myweatherapp.domain.models.currentweather.Weather
+import com.example.myweatherapp.domain.models.forecast.ForecastWeather
 
 data class HomeState (
     val weather : Weather?= null,
-    val forecast : ForecastWeatherResponse?=null,
+    val forecast : ForecastWeather?=null,
     val isLoading: Boolean = true
 )

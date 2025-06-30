@@ -12,6 +12,7 @@ navigationFragmentKtx = "2.9.0"
 navigationUiKtx = "2.9.0"
 google-dagger-hilt = "2.51.1"
 androidx-hilt = "1.2.0"
+jetbrains-kotlinx-coroutines = "1.7.1"
 
 
 [libraries]
@@ -35,6 +36,9 @@ androidx-hilt-common = { module = "androidx.hilt:hilt-common", version.ref = "an
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "google-dagger-hilt" }
 google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "google-dagger-hilt" }
+jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "jetbrains-kotlinx-coroutines" }
+jetbrains-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "jetbrains-kotlinx-coroutines" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
