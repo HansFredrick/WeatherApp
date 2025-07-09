@@ -7,28 +7,33 @@
 //import androidx.recyclerview.widget.ListAdapter
 //import androidx.recyclerview.widget.RecyclerView
 //import com.example.myweatherapp.databinding.ListItemLocationBinding
+//import com.example.myweatherapp.domain.models.currentweather.WeatherLocation
 //
 //
 //class LocationAdapter :
-//        ListAdapter<Location, LocationAdapter.ContentViewHolder>(differCallback) {
+//        ListAdapter<WeatherLocation, LocationAdapter.ContentViewHolder>(differCallback) {
 //
 //    inner class ContentViewHolder(val binder: ListItemLocationBinding) :
 //        RecyclerView.ViewHolder(binder.root)
 //
 //    companion object{
-//        private val differCallback = object : DiffUtil.ItemCallback<Location>() {
-//            override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
-//                return oldItem.country == newItem.country// date identifies a unique forecast day
+//        private val differCallback = object : DiffUtil.ItemCallback<WeatherLocation>() {
+//            override fun areItemsTheSame(
+//                oldItem: WeatherLocation,
+//                newItem: WeatherLocation
+//            ): Boolean {
+//                return oldItem.name == newItem.name
 //            }
 //
-//            override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
+//            override fun areContentsTheSame(
+//                oldItem: WeatherLocation,
+//                newItem: WeatherLocation
+//            ): Boolean {
 //                return oldItem == newItem  // check full content equality
 //            }
 //        }
 //    }
 //
-//
-//    val differ = AsyncListDiffer(this, differCallback)
 //
 //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
 //        val binder = ListItemLocationBinding.inflate(
@@ -40,17 +45,8 @@
 //    override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
 //        val location = getItem(position)
 //
-////        val nameTextView = holder.itemView.findViewById<TextView>(R.id.textViewLocationName)
-////        val countryTextView = holder.itemView.findViewById<TextView>(R.id.textViewCountry)
-////        val timeTextView = holder.itemView.findViewById<TextView>(R.id.textViewLocationTime)
-//
-//        // Safe setting of name
 //        holder.binder.textViewLocationName.text = location.name ?: "Unknown Location"
-//
-//        // Safe setting of time
-//        holder.binder.textViewLocationTime.text = location.localtime ?: "Unknown Local Time"
-//
-//        // Safe setting of  country
+//        holder.binder.textViewLocationTime.text = location.localTime ?: "Unknown Local Time"
 //        holder.binder.textViewCountry.text = location.country ?: "Unknown Country"
 //
 //        setOnItemClickListener {
@@ -58,9 +54,9 @@
 //        }
 //    }
 //
-//    private var onItemClickListener :((Location) -> Unit)? = null
+//    private var onItemClickListener :((WeatherLocation) -> Unit)? = null
 //
-//    fun setOnItemClickListener (listener: (Location) -> Unit){
+//    fun setOnItemClickListener (listener: (WeatherLocation) -> Unit){
 //        onItemClickListener = listener
 //    }
 //}

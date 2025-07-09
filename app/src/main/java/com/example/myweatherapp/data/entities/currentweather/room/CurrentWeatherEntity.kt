@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "currentWeather",
     foreignKeys = [ForeignKey(
-        entity = LocationEntity::class,
+        entity = WeatherLocationEntity::class,
         parentColumns = ["locationId"],
         childColumns = ["locationId"],
         onDelete = ForeignKey.CASCADE

@@ -6,17 +6,19 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myweatherapp.data.entities.currentweather.room.LocationEntity
+import androidx.room.Transaction
+import com.example.myweatherapp.data.entities.currentweather.room.WeatherLocationEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LocationDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)// onConflict in case of inserting repeated location
-    suspend fun upsert (location: LocationEntity) : Long
+    suspend fun upsert (location: WeatherLocationEntity) : Long
 
-    suspend fun saveEntity(location: LocationEntity):Long{
+    @Transaction
+    suspend fun saveEntity(location: WeatherLocationEntity):Long{
         val existingLocationEntity = getLocationByName(name = location.name)
-
         //If existing location is not null
         //trigger apply block
         existingLocationEntity?.apply {
@@ -30,12 +32,12 @@ interface LocationDAO {
 
     //READ
     @Query("SELECT * FROM location")
-    fun getAllLocations () : LiveData<List<LocationEntity>>
+    fun getAllLocations () : List<WeatherLocationEntity>
 
     @Query("SELECT * FROM location WHERE name = :name")
-    suspend fun getLocationByName(name: String): LocationEntity?
+    suspend fun getLocationByName(name: String): WeatherLocationEntity?
 
     //DELETE
     @Delete
-    suspend fun deleteLocation(location: LocationEntity)
+    suspend fun deleteLocation(location: WeatherLocationEntity)
 }

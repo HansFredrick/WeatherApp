@@ -4,12 +4,12 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.myweatherapp.data.entities.currentweather.room.LocationEntity
+import com.example.myweatherapp.data.entities.currentweather.room.WeatherLocationEntity
 
 @Entity(
     tableName = "forecastDay",
     foreignKeys = [ForeignKey(
-        entity = LocationEntity::class,
+        entity = WeatherLocationEntity::class,
         parentColumns = ["locationId"],
         childColumns = ["locationId"],
         onDelete = ForeignKey.CASCADE

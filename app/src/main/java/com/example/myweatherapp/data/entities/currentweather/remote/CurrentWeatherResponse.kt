@@ -2,6 +2,6 @@ package com.example.myweatherapp.data.entities.currentweather.remote
 
 
 data class CurrentWeatherResponse(
-    val location: LocationRemote,
+    val location: WeatherLocationRemote,
     val current : CurrentWeatherRemote
 )

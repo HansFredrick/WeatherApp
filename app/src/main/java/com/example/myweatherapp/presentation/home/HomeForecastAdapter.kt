@@ -50,8 +50,8 @@ class HomeForecastAdapter :
         // Set values
         holder.binder.tvDayItemDate.text = forecast.date
         holder.binder.tvDayItemCondition.text = forecast.day?.dayCondition?.text ?: "N/A"
-        holder.binder.tvDayItemMaxTemp.text = "${forecast.day?.maximumTemperatureCelsus.toString()?: 0}°"
-        holder.binder.tvDayItemAveTemp.text = "${forecast.day?.averageTemperatureCelsus.toString()?: 0}°"
+        holder.binder.tvDayItemMaxTemp.text = "${forecast.day?.maximumTemperatureCelsus?.toString()?: 0}°"
+        holder.binder.tvDayItemAveTemp.text = "${forecast.day?.averageTemperatureCelsus?.toString()?: 0}°"
 
         // Load weather icon
         val iconUrl = "https:${forecast.day?.dayCondition?.icon ?: 0}"

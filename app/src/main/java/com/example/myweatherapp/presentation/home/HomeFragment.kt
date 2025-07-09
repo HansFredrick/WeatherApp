@@ -37,40 +37,55 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binder.refreshLayout.setOnRefreshListener {
+            viewModel.getData()
+            binder.refreshLayout.isRefreshing = false
+        }
+
+
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
+
+                viewModel._uiState.collect { state ->
 
                     binder.pbHome.isVisible = state.isLoading
 
-                    binder.tvLocationName.text = state.weather?.location?.name
-                    binder.tvLocationCountry.text = state.weather?.location?.country
-                    binder.tvLocationTimeZone.text = state.weather?.location?.timeZone
-                    binder.tvLocationTime.text = state.weather?.location?.localTime
+                    binder.tvLocationName.text = state.weather?.weatherLocation?.name
+                    binder.tvLocationCountry.text = state.weather?.weatherLocation?.country
+                    binder.tvLocationTimeZone.text = state.weather?.weatherLocation?.timeZone
+                    binder.tvLocationTime.text = state.weather?.weatherLocation?.localTime
 
-                    binder.tvCurrentTemperature.text = state.weather?.current?.temperatureCelsius.toString()
+                    binder.tvCurrentTemperature.text =
+                        state.weather?.current?.temperatureCelsius.toString()
 
                     binder.tvCurrentWeatherCondition.text =
                         state.weather?.current?.currentWeatherCondition?.text
 
                     val imageUrl = state.weather?.current?.currentWeatherCondition?.icon
                     //https://cdn.weatherapi.com/weather/64x64/day/353.png
-                    Glide.with(requireContext()).load("https:$imageUrl").into(binder.ivCurrentConditionIcon)
+                    Glide.with(requireContext()).load("https:$imageUrl")
+                        .into(binder.ivCurrentConditionIcon)
 
-                    binder.tvCurrentAirQuality.text = state.weather?.current?.airQuality?.usEPAAirQualityIndex.toString()
-                    binder.tvCurrentWindSpeedKilometers.text = state.weather?.current?.windSpeedKilometers.toString()
-                    binder.tvCurrentWindSpeedMiles.text = state.weather?.current?.windSpeedMiles.toString()
-                    binder.tvCurrentPrecipitationMm.text = state.weather?.current?.precipitationMilimeter.toString()
-                    binder.tvCurrentPrecipitationInch.text = state.weather?.current?.precipitationInch.toString()
+                    binder.tvCurrentAirQuality.text =
+                        state.weather?.current?.airQuality?.usEPAAirQualityIndex.toString()
+                    binder.tvCurrentWindSpeedKilometers.text =
+                        state.weather?.current?.windSpeedKilometers.toString()
+                    binder.tvCurrentWindSpeedMiles.text =
+                        state.weather?.current?.windSpeedMiles.toString()
+                    binder.tvCurrentPrecipitationMm.text =
+                        state.weather?.current?.precipitationMilimeter.toString()
+                    binder.tvCurrentPrecipitationInch.text =
+                        state.weather?.current?.precipitationInch.toString()
                     binder.tvCurrentUVIndex.text = state.weather?.current?.uvIndex.toString()
 
                     homeForecastAdapter = HomeForecastAdapter().also { adapter ->
                         binder.recyclerViewForecast.adapter = adapter
-                        binder.recyclerViewForecast.layoutManager = LinearLayoutManager(requireContext())
+                        binder.recyclerViewForecast.layoutManager =
+                            LinearLayoutManager(requireContext())
                     }
 
 
-                    state.forecast?.forecast?.forecastDays?.let { days ->
+                    state.forecastDays?.let { days ->
                         Log.d("HomeFragment", "Submitting ${days.size} days to adapter")
                         homeForecastAdapter.submitList(days)
                     }
@@ -79,5 +94,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
         }
+//        binder.btnLogin.setonClickListener{
+//            viewModel.setIntent(
+//                intent = HomeIntent.OnLoginClicked
+//            )
+//        }
+
+
     }
 }

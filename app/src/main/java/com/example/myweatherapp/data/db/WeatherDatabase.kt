@@ -9,7 +9,7 @@ import com.example.myweatherapp.data.datasource.local.DayDAO
 import com.example.myweatherapp.data.datasource.local.ForecastDayDAO
 import com.example.myweatherapp.data.datasource.local.LocationDAO
 import com.example.myweatherapp.data.entities.currentweather.room.CurrentWeatherEntity
-import com.example.myweatherapp.data.entities.currentweather.room.LocationEntity
+import com.example.myweatherapp.data.entities.currentweather.room.WeatherLocationEntity
 import com.example.myweatherapp.data.entities.forecastweather.room.DayEntity
 import com.example.myweatherapp.data.entities.forecastweather.room.ForecastDayEntity
 import dagger.Module
@@ -22,7 +22,7 @@ import javax.inject.Singleton
 @Database(
     entities = [
         CurrentWeatherEntity::class,
-        LocationEntity::class,
+        WeatherLocationEntity::class,
         DayEntity::class,
         ForecastDayEntity::class
     ],

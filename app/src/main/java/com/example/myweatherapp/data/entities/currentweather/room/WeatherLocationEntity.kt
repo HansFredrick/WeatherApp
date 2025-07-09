@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "location"
 )
-data class LocationEntity(
+data class WeatherLocationEntity(
     @PrimaryKey(autoGenerate = true)
     var locationId:Int? = null,
     val country: String,
     val localtime: String,
     val name: String,
-    val timeZone: String
+    val timeZone: String,
 )

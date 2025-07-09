@@ -5,8 +5,8 @@ import androidx.room.Relation
 import com.example.myweatherapp.data.entities.forecastweather.room.ForecastDayWrapper
 import com.example.myweatherapp.data.entities.forecastweather.room.ForecastDayEntity
 
-data class LocationWrapper (
-    @Embedded val locationEntity: LocationEntity,
+data class WeatherLocationWrapper (
+    @Embedded val weatherLocationEntity: WeatherLocationEntity,
 
     @Relation (
         parentColumn = "locationId",

@@ -18,7 +18,11 @@ class WeatherModule {
 
     @Provides
     @Singleton
-    fun provideWeatherApi(): WeatherApi = RetrofitInstance.api
+    fun provideWeatherApi(): WeatherApi = RetrofitInstance.weatherApi
+
+//    @Provides
+//    @Singleton
+//    fun provideLocationApi():LocationApi = RetrofitInstance.locationApi
 
     @Provides
     @Singleton
