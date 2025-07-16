@@ -9,6 +9,20 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Search field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search location">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_search_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvLocations"

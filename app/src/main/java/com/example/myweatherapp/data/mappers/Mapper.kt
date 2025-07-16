@@ -7,23 +7,24 @@ package com.example.myweatherapp.data.mappers
 
 // domain models
 import androidx.compose.animation.core.rememberTransition
-import com.example.myweatherapp.data.entities.currentweather.remote.CurrentWeatherAirQualityRemote
-import com.example.myweatherapp.data.entities.currentweather.remote.CurrentWeatherConditionRemote
-import com.example.myweatherapp.data.entities.currentweather.remote.CurrentWeatherRemote
-import com.example.myweatherapp.data.entities.currentweather.remote.WeatherLocationRemote
-import com.example.myweatherapp.data.entities.currentweather.room.CurrentWeatherEntity
-import com.example.myweatherapp.data.entities.currentweather.room.WeatherLocationEntity
-import com.example.myweatherapp.data.entities.currentweather.room.WeatherLocationWrapper
-import com.example.myweatherapp.data.entities.forecastweather.remote.DayConditionRemote
-import com.example.myweatherapp.data.entities.forecastweather.remote.DayRemote
-import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastDayRemote
-import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastWeatherResponse
-import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastXRemote
-import com.example.myweatherapp.data.entities.forecastweather.room.DayEntity
-import com.example.myweatherapp.data.entities.forecastweather.room.ForecastDayEntity
-import com.example.myweatherapp.data.entities.forecastweather.room.ForecastDayWrapper
+import com.example.myweatherapp.data.entities.weather.currentweather.remote.CurrentWeatherAirQualityRemote
+import com.example.myweatherapp.data.entities.weather.currentweather.remote.CurrentWeatherConditionRemote
+import com.example.myweatherapp.data.entities.weather.currentweather.remote.CurrentWeatherRemote
+import com.example.myweatherapp.data.entities.weather.currentweather.remote.WeatherLocationRemote
+import com.example.myweatherapp.data.entities.weather.currentweather.room.CurrentWeatherEntity
+import com.example.myweatherapp.data.entities.weather.currentweather.room.WeatherLocationEntity
+import com.example.myweatherapp.data.entities.weather.currentweather.room.WeatherLocationWrapper
+import com.example.myweatherapp.data.entities.weather.forecastweather.remote.DayConditionRemote
+import com.example.myweatherapp.data.entities.weather.forecastweather.remote.DayRemote
+import com.example.myweatherapp.data.entities.weather.forecastweather.remote.ForecastDayRemote
+import com.example.myweatherapp.data.entities.weather.forecastweather.remote.ForecastWeatherResponse
+import com.example.myweatherapp.data.entities.weather.forecastweather.remote.ForecastXRemote
+import com.example.myweatherapp.data.entities.weather.forecastweather.room.DayEntity
+import com.example.myweatherapp.data.entities.weather.forecastweather.room.ForecastDayEntity
+import com.example.myweatherapp.data.entities.weather.forecastweather.room.ForecastDayWrapper
 import com.example.myweatherapp.data.entities.location.remote.LocationRemote
 import com.example.myweatherapp.data.entities.location.remote.LocationResponse
+import com.example.myweatherapp.data.entities.location.room.LocationEntity
 import com.example.myweatherapp.domain.models.currentweather.CurrentWeather
 import com.example.myweatherapp.domain.models.currentweather.CurrentWeatherAirQuality
 import com.example.myweatherapp.domain.models.currentweather.CurrentWeatherCondition
@@ -37,37 +38,10 @@ import com.example.myweatherapp.domain.models.forecast.ForecastX
 import com.example.myweatherapp.domain.models.location.Location
 import com.example.myweatherapp.domain.models.location.Locations
 
-// the Following methods are mapper to domain for current weather remote entities
-
-fun CurrentWeatherAirQualityRemote.toDomain(): CurrentWeatherAirQuality {
-    return CurrentWeatherAirQuality(
-        usEPAAirQualityIndex = this.usEPAAirQualityIndex
-    )
-}
-
-fun CurrentWeatherConditionRemote.toDomain(): CurrentWeatherCondition {
-    return CurrentWeatherCondition(
-        text = this.text,
-        icon = this.icon
-
-    )
-}
 
 /*
 toDomain and toEntity of CurrentWeatherRemote
  */
-fun CurrentWeatherRemote.toDomain(): CurrentWeather {
-    return CurrentWeather(
-        temperatureCelsius = this.temperatureCelsius,
-        currentWeatherCondition = this.currentWeatherCondition.toDomain(),
-        airQuality = this.airQuality.toDomain(),
-        windSpeedMiles = this.windSpeedMiles,
-        windSpeedKilometers = this.windSpeedKilometers,
-        precipitationMilimeter = this.precipitationMilimeter,
-        precipitationInch = this.precipitationInch,
-        uvIndex = this.uvIndex
-    )
-}
 
 fun CurrentWeatherRemote.toEntity(locationID: Int): CurrentWeatherEntity {
     return CurrentWeatherEntity(
@@ -111,7 +85,7 @@ fun WeatherLocationEntity.toDomain(): WeatherLocation {
 fun WeatherLocationWrapper.toDomain(): Weather {
     return Weather(
         weatherLocation = this.weatherLocationEntity.toDomain(),
-        current = this.currentWeatherEntity!!.toDomain(),
+        current = this.currentWeatherEntity?.toDomain(),
         forecastDay = this.forecastDayWrapper?.map {
             it.toDomain()
         } ?: emptyList()
@@ -155,35 +129,6 @@ fun CurrentWeatherEntity.toDomain(): CurrentWeather {
     )
 }
 
-// the Following methods are mapper to domain for forecast weather remote entities
-
-fun DayConditionRemote.toDomain(): DayCondition {
-    return DayCondition(
-        text = this.text,
-        icon = this.icon
-    )
-}
-
-fun DayRemote.toDomain(): Day {
-    return Day(
-        averageTemperatureCelsus = this.averageTemperatureCelsus,
-        maximumTemperatureCelsus = this.maximumTemperatureCelsus,
-        dayCondition = this.dayCondition.toDomain(),
-    )
-}
-
-fun ForecastDayRemote.toDomain(): ForecastDay {
-    return ForecastDay(
-        date = this.date,
-        day = this.day.toDomain()
-    )
-}
-
-fun ForecastXRemote.toDomain(): ForecastX {
-    return ForecastX(
-        forecastDays = this.forecastDay.map { it.toDomain() }
-    )
-}
 
 fun ForecastDayRemote.toEntity(locationID: Int): ForecastDayEntity {
     return ForecastDayEntity(
@@ -202,18 +147,30 @@ fun DayRemote.toEntity(forecastID: Int): DayEntity {
     )
 }
 
-fun LocationResponse.toDomain():Locations{
-    return Locations(
-        locations = this.locations.map {
-            it.toDomain()
-        }
-    )
-}
 fun LocationRemote.toDomain(): Location{
     return Location(
-        id = this.placeID,
-        name = this.locationName,
-        displayName = this.locationDisplayName
+        placeId = this.placeID,
+        displayName = this.displayName,
+        latitude = this.latitude,
+        longitude = this.longitude
+    )
+}
+
+fun Location.toEntity(): LocationEntity{
+    return LocationEntity(
+        placeID = this.placeId,
+        displayName = this.displayName,
+        latitude = this.latitude,
+        longitude = this.longitude
+    )
+}
+
+fun LocationEntity.toDomain(): Location{
+    return Location(
+        placeId = this.placeID,
+        displayName = this.displayName,
+        latitude = this.latitude,
+        longitude = this.longitude
     )
 }
 

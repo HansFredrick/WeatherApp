@@ -1,13 +1,13 @@
 package com.example.myweatherapp.domain.repositories
 
 import com.example.myweatherapp.data.api.networkBoundResource
-import com.example.myweatherapp.data.datasource.WeatherApi
-import com.example.myweatherapp.data.datasource.local.CurrentWeatherDAO
-import com.example.myweatherapp.data.datasource.local.DayDAO
-import com.example.myweatherapp.data.datasource.local.ForecastDayDAO
-import com.example.myweatherapp.data.datasource.local.LocationDAO
-import com.example.myweatherapp.data.entities.currentweather.remote.CurrentWeatherResponse
-import com.example.myweatherapp.data.entities.forecastweather.remote.ForecastWeatherResponse
+import com.example.myweatherapp.data.datasource.api.WeatherApi
+import com.example.myweatherapp.data.datasource.local.weather.CurrentWeatherDAO
+import com.example.myweatherapp.data.datasource.local.weather.DayDAO
+import com.example.myweatherapp.data.datasource.local.weather.ForecastDayDAO
+import com.example.myweatherapp.data.datasource.local.weather.WeatherLocationDAO
+import com.example.myweatherapp.data.entities.weather.currentweather.remote.CurrentWeatherResponse
+import com.example.myweatherapp.data.entities.weather.forecastweather.remote.ForecastWeatherResponse
 import com.example.myweatherapp.data.mappers.toDomain
 import com.example.myweatherapp.data.mappers.toEntity
 import kotlinx.coroutines.flow.map
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
     private val weatherApi: WeatherApi,
-    private val locationDAO: LocationDAO,
+    private val weatherLocationDAO: WeatherLocationDAO,
     private val currentWeatherDAO: CurrentWeatherDAO,
     private val forecastDayDAO: ForecastDayDAO,
     private val dayDAO: DayDAO,
@@ -42,7 +42,7 @@ class WeatherRepository @Inject constructor(
                 if (weatherResult != null) {
                     upsertCurrentWeather(weatherResult)
                     val locationEntity = weatherResult.location.toEntity()
-                    val savedLocationID = locationDAO.saveEntity(locationEntity)
+                    val savedLocationID = weatherLocationDAO.saveEntity(locationEntity)
                     currentWeatherDAO.upsert(currentWeather = weatherResult.current.toEntity(locationID = savedLocationID.toInt()))
 
                     val getForecastResponse = weatherApi.getForecastWeather(
@@ -70,14 +70,13 @@ class WeatherRepository @Inject constructor(
 
     private suspend fun upsertCurrentWeather(weatherResult: CurrentWeatherResponse) {
         val locationEntity = weatherResult.location.toEntity()
-        val savedLocationID = locationDAO.saveEntity(locationEntity)
+        val savedLocationID = weatherLocationDAO.saveEntity(locationEntity)
         currentWeatherDAO.upsert(currentWeather = weatherResult.current.toEntity(locationID = savedLocationID.toInt()))
     }
 
 
     private suspend fun upsertForecastWeather(remote: ForecastWeatherResponse, locationID: Int) {
         println("COUNT:"+remote.forecast.forecastDay.count())
-       // println("AVG TEMP:"+remote.forecast.forecastDay.get(0).day.averageTemperatureCelsus)
         val forecastDayEntities = remote.forecast.forecastDay.map {
             it.toEntity(locationID)
         }

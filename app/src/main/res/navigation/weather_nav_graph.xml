@@ -32,12 +32,4 @@
         android:id="@+id/contentFragment"
         android:name="com.example.myweatherapp.presentation.content.ContentFragment"
         android:label="ContentFragment" />
-    <fragment
-        android:id="@+id/selectLocationFragment"
-        android:name="com.example.myweatherapp.presentation.selectlocation.SelectLocationFragment"
-        android:label="SelectLocationFragment" >
-        <action
-            android:id="@+id/action_selectLocationFragment_to_contentFragment"
-            app:destination="@id/contentFragment" />
-    </fragment>
 </navigation>
