@@ -7,27 +7,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.databinding.ListItemLocationBinding
-import com.example.myweatherapp.domain.models.currentweather.WeatherLocation
+import com.example.myweatherapp.domain.models.location.Location
 
 
 class LocationAdapter :
-        ListAdapter<WeatherLocation, LocationAdapter.ContentViewHolder>(differCallback) {
+        ListAdapter<Location, LocationAdapter.ContentViewHolder>(differCallback) {
 
     inner class ContentViewHolder(val binder: ListItemLocationBinding) :
         RecyclerView.ViewHolder(binder.root)
 
     companion object{
-        private val differCallback = object : DiffUtil.ItemCallback<WeatherLocation>() {
+        private val differCallback = object : DiffUtil.ItemCallback<Location>() {
             override fun areItemsTheSame(
-                oldItem: WeatherLocation,
-                newItem: WeatherLocation
+                oldItem: Location,
+                newItem: Location
             ): Boolean {
-                return oldItem.name == newItem.name
+                return oldItem.placeId == newItem.placeId
             }
 
             override fun areContentsTheSame(
-                oldItem: WeatherLocation,
-                newItem: WeatherLocation
+                oldItem: Location,
+                newItem: Location
             ): Boolean {
                 return oldItem == newItem  // check full content equality
             }
@@ -45,18 +45,18 @@ class LocationAdapter :
     override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
         val location = getItem(position)
 
-        holder.binder.textViewLocationName.text = location.name ?: "Unknown Location"
-        holder.binder.textViewLocationTime.text = location.localTime ?: "Unknown Local Time"
-        holder.binder.textViewCountry.text = location.country ?: "Unknown Country"
+        holder.binder.textViewLocationName.text = location.displayName ?: "Unknown Location"
+        holder.binder.textViewLocationTime.text = location.longitude ?: "Unknown Local Time"
+        holder.binder.textViewCountry.text = location.latitude ?: "Unknown Country"
 
         setOnItemClickListener {
             onItemClickListener?.let{it(location)}
         }
     }
 
-    private var onItemClickListener :((WeatherLocation) -> Unit)? = null
+    private var onItemClickListener :((Location) -> Unit)? = null
 
-    fun setOnItemClickListener (listener: (WeatherLocation) -> Unit){
+    fun setOnItemClickListener (listener: (Location) -> Unit){
         onItemClickListener = listener
     }
 }
