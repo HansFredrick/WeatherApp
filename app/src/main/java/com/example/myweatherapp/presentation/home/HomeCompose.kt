@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -33,7 +34,11 @@ import com.example.myweatherapp.R
 
 class HomeCompose {
     @Composable
-    fun WeatherScreen() {
+    fun WeatherScreen(
+//        viewModel: HomeViewModel = hiltViewModel()
+    ) {
+//        val weatherState by viewModel._uiState.collect()
+
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -52,14 +57,14 @@ class HomeCompose {
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(30.dp)
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Header: City Name
+
                     Text(
                         text = "Baguio City",
-                        style = MaterialTheme.typography.headlineLarge,
+                        style = MaterialTheme.typography.displayMedium,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
                         modifier = Modifier.padding(bottom = 8.dp)
@@ -67,16 +72,15 @@ class HomeCompose {
 
                     Text(
                         text = "21°C",
-                        style = MaterialTheme.typography.displayMedium,
-                        fontWeight = FontWeight.ExtraBold,
+                        style = MaterialTheme.typography.displayLarge,
                         color = Color.White,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
-
+                    // Condition icon and name
                     Surface(
-                        color = Color(0x43B3B3B7),
+                        color = Color(0x25B3B3B7),
                         modifier = Modifier
-                            .size(340.dp)
+                            .size(360.dp)
                             .padding(bottom = 16.dp)
                             .clip(CircleShape),
                         shape = CircleShape
@@ -87,18 +91,18 @@ class HomeCompose {
                             verticalArrangement = Arrangement.Center
                         ) {
                             Icon(
-                                painter = painterResource(android.R.drawable.sym_action_call),
+                                painter = painterResource(R.drawable.ic_sunny),
                                 contentDescription = "Sunny",
                                 tint = Color.White,
                                 modifier = Modifier
-                                    .size(200.dp)
-                                    .padding(bottom = 10.dp)
+                                    .size(260.dp)
+                                    .padding(bottom = 5.dp)
                             )
                             Text(
                                 text = "Sunny",
-                                style = MaterialTheme.typography.headlineSmall,
                                 fontWeight = FontWeight.Bold,
-                                color = Color(0xFFEBEFF3),
+                                style = MaterialTheme.typography.headlineSmall,
+                                color = Color(0xFFE3DEDE),
                                 modifier = Modifier.padding(bottom = 8.dp)
                             )
 
@@ -118,7 +122,7 @@ class HomeCompose {
                             horizontalArrangement = Arrangement.SpaceEvenly,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Date and Time
+                            // Date and time
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
@@ -134,7 +138,7 @@ class HomeCompose {
                                 )
                             }
 
-                            Divider(
+                            HorizontalDivider(
                                 color = Color(0xC1EBEFF3),
                                 modifier = Modifier
                                     .height(60.dp)
@@ -158,7 +162,7 @@ class HomeCompose {
                         }
                     }
 
-                    // Daily Forecast
+                    // Daily forecast
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         modifier = Modifier
@@ -180,17 +184,20 @@ class HomeCompose {
                             )
                         }
                     }
-
+                    // Index values
                     ValueIndex(
                         indexType = "AIR QUALITY INDEX: ",
-                        indexValue = "GOOD",
+                        indexValue = "10",
+                        indexMeaning = "Good",
                         image = R.drawable.aqi_good
                     )
                     ValueIndex(
                         indexType = "UV INDEX: ",
                         indexValue = "0.0",
+                        indexMeaning = "Good",
                         image = R.drawable.aqi_good
                     )
+                    // Measurement values
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ){
@@ -262,7 +269,7 @@ class HomeCompose {
                             )
                         }
 
-                        Divider(
+                        HorizontalDivider(
                             color = Color.White,
                             modifier = Modifier
                                 .height(24.dp)
@@ -293,7 +300,7 @@ class HomeCompose {
     }
 
     @Composable
-    fun ValueIndex(indexType: String, indexValue: String, image: Int){
+    fun ValueIndex(indexType: String, indexMeaning: String, indexValue: String, image: Int){
         Surface (color = Color(0x4F040407),
             modifier = Modifier
                 .height(120.dp)
@@ -313,19 +320,34 @@ class HomeCompose {
                     tint = Color.White,
                     modifier = Modifier.size(140.dp).weight(4f).padding(horizontal = 5.dp)
                 )
-                Column (
+                Column(
                     horizontalAlignment = Alignment.Start,
-                    modifier = Modifier.weight(3f)
-                ){
+                    modifier = Modifier
+                        .weight(3f)
+                        .padding(start = 8.dp) // Added left padding for better spacing
+                ) {
+                    // Index Type Label (e.g., "AIR QUALITY INDEX")
                     Text(
-                        text = indexType,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White.copy(alpha = 0.8f)
+                        text = indexType.uppercase(), // Make uppercase for consistency
+                        style = MaterialTheme.typography.labelMedium, // More appropriate than bodySmall
+                        color = Color.White.copy(alpha = 0.8f),
+                        modifier = Modifier.padding(bottom = 4.dp) // Reduced padding
                     )
+
+                    // Index Value (e.g., "42")
                     Text(
                         text = indexValue,
+                        style = MaterialTheme.typography.headlineSmall, // Slightly larger than titleLarge
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        modifier = Modifier.padding(bottom = 2.dp)
+                    )
+
+                    // Index Meaning (e.g., "Good")
+                    Text(
+                        text = indexMeaning,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.White
+                        color = Color.White.copy(alpha = 0.9f) // Slightly transparent
                     )
                 }
             }
@@ -377,7 +399,7 @@ class HomeCompose {
                             ),
                             contentDescription = condition,
                             tint = Color.White,
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(27.dp)
                         )
                         Column {
                             Text(
