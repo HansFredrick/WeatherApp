@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.FragmentHomeBinding
+import com.example.myweatherapp.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: MainViewModel by activityViewModels()
     private lateinit var homeForecastAdapter: HomeForecastAdapter
     private lateinit var binder: FragmentHomeBinding
 
@@ -38,7 +39,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         binder.refreshLayout.setOnRefreshListener {
-            viewModel.getData()
+            viewModel.getHomeData()
             binder.refreshLayout.isRefreshing = false
         }
 

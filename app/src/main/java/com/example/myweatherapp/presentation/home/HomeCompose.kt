@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,10 +91,9 @@ class HomeCompose {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Icon(
+                            Image(
                                 painter = painterResource(R.drawable.ic_sunny),
                                 contentDescription = "Sunny",
-                                tint = Color.White,
                                 modifier = Modifier
                                     .size(260.dp)
                                     .padding(bottom = 5.dp)
@@ -138,7 +138,7 @@ class HomeCompose {
                                 )
                             }
 
-                            HorizontalDivider(
+                            VerticalDivider(
                                 color = Color(0xC1EBEFF3),
                                 modifier = Modifier
                                     .height(60.dp)
@@ -314,10 +314,9 @@ class HomeCompose {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
-                Icon(
+                Image(
                     painter = painterResource(image), // Add your icon
                     contentDescription = "",
-                    tint = Color.White,
                     modifier = Modifier.size(140.dp).weight(4f).padding(horizontal = 5.dp)
                 )
                 Column(
@@ -390,7 +389,7 @@ class HomeCompose {
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                         modifier = Modifier.padding(4.dp)
                     ){
-                        Icon(
+                        Image(
                             painter = painterResource(
                                 when (condition) {
                                     "Sunny" -> R.drawable.ic_sunny
@@ -398,7 +397,6 @@ class HomeCompose {
                                 }
                             ),
                             contentDescription = condition,
-                            tint = Color.White,
                             modifier = Modifier.size(27.dp)
                         )
                         Column {

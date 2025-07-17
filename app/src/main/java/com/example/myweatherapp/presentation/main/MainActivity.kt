@@ -1,19 +1,18 @@
-package com.example.myweatherapp.presentation
+package com.example.myweatherapp.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.myweatherapp.R
-import com.example.myweatherapp.presentation.home.HomeViewModel
 import com.example.myweatherapp.presentation.viewmodel.LocationViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WeatherMainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
-    lateinit var homeViewModel : HomeViewModel
+    lateinit var mainViewModel : MainViewModel
     lateinit var locationViewModel : LocationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

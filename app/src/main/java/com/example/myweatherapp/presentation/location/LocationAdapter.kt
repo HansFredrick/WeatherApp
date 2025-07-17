@@ -10,14 +10,27 @@ import com.example.myweatherapp.databinding.ListItemLocationBinding
 import com.example.myweatherapp.domain.models.location.Location
 
 
-class LocationAdapter :
-        ListAdapter<Location, LocationAdapter.ContentViewHolder>(differCallback) {
+class LocationAdapter : ListAdapter<Location, LocationAdapter.ContentViewHolder>(differCallback) {
 
-    inner class ContentViewHolder(val binder: ListItemLocationBinding) :
-        RecyclerView.ViewHolder(binder.root)
+    private var onItemClickListener :((Location) -> Unit)? = null
 
-    companion object{
-        private val differCallback = object : DiffUtil.ItemCallback<Location>() {
+    fun setOnItemClickListener(listener: (Location) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    inner class ContentViewHolder(val binder: ListItemLocationBinding) :  RecyclerView.ViewHolder(binder.root){
+        private var currentLocation: Location? = null
+        init {
+            binder.root.setOnClickListener {
+                currentLocation?.let { location ->
+                    onItemClickListener?.invoke(location)
+                }
+            }
+        }
+    }
+
+    companion object{ private val differCallback = object : DiffUtil.ItemCallback<Location>() {
+
             override fun areItemsTheSame(
                 oldItem: Location,
                 newItem: Location
@@ -29,7 +42,7 @@ class LocationAdapter :
                 oldItem: Location,
                 newItem: Location
             ): Boolean {
-                return oldItem == newItem  // check full content equality
+                return oldItem == newItem
             }
         }
     }
@@ -45,18 +58,9 @@ class LocationAdapter :
     override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
         val location = getItem(position)
 
-        holder.binder.textViewLocationName.text = location.displayName ?: "Unknown Location"
-        holder.binder.textViewLocationTime.text = location.longitude ?: "Unknown Local Time"
-        holder.binder.textViewCountry.text = location.latitude ?: "Unknown Country"
+        holder.binder.tvLocationDisplayName.text = location.displayName ?: "Unknown Location"
+        holder.binder.tvLocationLongitude.text = location.longitude ?: "Unknown Latitude"
+        holder.binder.tvLocationLatitude.text = location.latitude ?: "Unknown Longitude"
 
-        setOnItemClickListener {
-            onItemClickListener?.let{it(location)}
-        }
-    }
-
-    private var onItemClickListener :((Location) -> Unit)? = null
-
-    fun setOnItemClickListener (listener: (Location) -> Unit){
-        onItemClickListener = listener
     }
 }

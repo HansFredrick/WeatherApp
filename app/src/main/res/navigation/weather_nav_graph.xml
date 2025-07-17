@@ -7,29 +7,9 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.myweatherapp.presentation.home.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_contentFragment"
-            app:destination="@id/contentFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
+        android:label="HomeFragment" />
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.example.myweatherapp.presentation.location.LocationFragment"
-        android:label="LocationFragment" >
-        <action
-            android:id="@+id/action_locationFragment_to_contentFragment"
-            app:destination="@id/contentFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
-    <fragment
-        android:id="@+id/contentFragment"
-        android:name="com.example.myweatherapp.presentation.content.ContentFragment"
-        android:label="ContentFragment" />
+        android:label="LocationFragment" />
 </navigation>

@@ -1,6 +1,5 @@
 package com.example.myweatherapp.domain.repositories
 
-import com.example.myweatherapp.data.api.networkBoundResource
 import com.example.myweatherapp.data.datasource.api.LocationApi
 import com.example.myweatherapp.data.datasource.local.location.LocationDAO
 import com.example.myweatherapp.data.mappers.toDomain
@@ -13,7 +12,7 @@ class LocationRepository @Inject constructor(
     private val locationApi: LocationApi,
     private val locationDAO: LocationDAO
 ) {
-    fun getLocations():List<Location>{
+    fun getVisitedLocations():List<Location>{
         var visitedLocations= emptyList<Location>()
         locationDAO.getAllLocations().map {
                 it.map {
@@ -24,12 +23,10 @@ class LocationRepository @Inject constructor(
     }
 
     suspend fun searchLocation (q:String):List<Location>{
-        var visitedLocations= emptyList<Location>()
-        val locationResult = locationApi.searchLocation(location = q)
-        locationResult.locations.map{
-            visitedLocations = listOf(it.toDomain())
+        val locationResult = locationApi.searchLocation(location = q).locations.map{
+            it.toDomain()
         }
-        return visitedLocations
+        return locationResult
     }
 
     suspend fun upsertLocation(location:Location){

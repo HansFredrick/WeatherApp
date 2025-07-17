@@ -3,8 +3,6 @@ package com.example.myweatherapp.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myweatherapp.domain.repositories.LocationRepository
-import com.example.myweatherapp.presentation.sharedintent.IntentBus
-import com.example.myweatherapp.presentation.sharedintent.UserIntent
 import com.example.myweatherapp.presentation.location.LocationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +12,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LocationViewModel @Inject constructor (
-    val intentBus : IntentBus,
     val locationRepository : LocationRepository
 ): ViewModel() {
     val _uiState = MutableStateFlow(LocationState())
@@ -25,7 +22,7 @@ class LocationViewModel @Inject constructor (
 
     fun getData(){
         viewModelScope.launch {
-            val getLocationsResult = locationRepository.getLocations()
+            val getLocationsResult = locationRepository.getVisitedLocations()
             _uiState.update { currentState ->
                 currentState.copy(
                     visitedLocation = getLocationsResult
@@ -35,10 +32,18 @@ class LocationViewModel @Inject constructor (
         }
     }
 
-    fun sendIntent(intent: UserIntent) = viewModelScope.launch {
+
+
+}
+
+/*
+fun sendIntent(intent: MainIntent) = viewModelScope.launch {
         when (intent) {
-            is UserIntent.OnLocationSelected -> intentBus.dispatch(intent)
-            is UserIntent.OnLocationSearched -> {
+            is MainIntent.OnLocationSelected -> {
+                intentBus.dispatch(intent)
+                _uiState.update { it.copy(currentLocation = intent.locationName)}
+            }
+            is MainIntent.OnLocationSearched -> {
                 val getLocationsResult = locationRepository.searchLocation(
                     q = intent.locationName
                 )
@@ -51,8 +56,7 @@ class LocationViewModel @Inject constructor (
             }
         }
     }
-
-}
+ */
 
 
 //    fun searchLocation(input : String){
